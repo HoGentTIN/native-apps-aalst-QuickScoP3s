@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation_main"
+    app:startDestination="@id/fragment_nav_projects_overview">
+
+    <fragment
+        android:id="@+id/fragment_nav_projects_overview"
+        android:name="com.quickdev.projectdashboard.ui.projects.ProjectsOverviewFragment"
+        tools:layout="@layout/projects_fragment_overview"/>
+</navigation>

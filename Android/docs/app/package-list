@@ -1,0 +1,13 @@
+$dokka.format:html
+$dokka.linkExtension:html
+
+com.quickdev.projectdashboard
+com.quickdev.projectdashboard.data
+com.quickdev.projectdashboard.data.network
+com.quickdev.projectdashboard.models.DTO
+com.quickdev.projectdashboard.models.domain
+com.quickdev.projectdashboard.ui.activity
+com.quickdev.projectdashboard.ui.auth
+com.quickdev.projectdashboard.ui.projects
+com.quickdev.projectdashboard.viewmodels
+com.quickdev.projectdashboard.viewmodels.factories

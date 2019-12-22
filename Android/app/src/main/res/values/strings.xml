@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Project Dashboard</string>
+
+    <string name="action_login">Login</string>
+    <string name="action_forgotpassword">Forgot Password?</string>
+    <string name="action_register">Register</string>
+
+    <string name="hint_email">Email</string>
+    <string name="hint_password">Password</string>
+
+    <string name="desc_img_logo">Project Dashboard logo</string>
+
+    <string name="action_profile">Profile</string>
+    <string name="action_projects">Projects</string>
+    <string name="action_teams">Teams</string>
+
+    <!-- VALIDATION ERROR -->
+    <string name="error_empty">This field is required</string>
+    <string name="error_invalid_email">Enter a valid email</string>
+    <string name="error_invalid_phonenr">Enter a valid phone number</string>
+    <string name="error_invalid_password">A password is at least 6 characters long</string>
+    <string name="error_invalid_passwordConfirm">The entered passwords do not match</string>
+
+    <string name="error_login_failed">Failed to login, email and password do not match</string>
+    <string name="error_registration_failed">Failed to register, check your details</string>
+
+    <!-- GENERIC HTTP ERROR -->
+    <string name="httperror_nonetwork">No network… Try connecting first</string>
+    <string name="httperror_400">Something went wrong while sending data</string>
+    <string name="httperror_401">You are not authorized to do this</string>
+    <string name="httperror_404">The requested data was not found</string>
+    <string name="httperror_504">The server didn\'t respond in time, try again…</string>
+</resources>

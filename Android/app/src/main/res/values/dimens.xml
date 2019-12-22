@@ -1,0 +1,12 @@
+<resources>
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="padding_xlarge">32dp</dimen>
+    <dimen name="padding_xxlarge">48dp</dimen>
+    <dimen name="padding_xxxlarge">64dp</dimen>
+
+    <!-- Text Size -->
+    <dimen name="textsize_regular">15sp</dimen>
+    <dimen name="textsize_medium">18sp</dimen>
+</resources>

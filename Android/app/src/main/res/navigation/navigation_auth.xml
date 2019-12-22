@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_auth"
+    app:startDestination="@id/fragment_nav_login">
+
+    <fragment
+        android:id="@+id/fragment_nav_login"
+        android:name="com.quickdev.projectdashboard.ui.auth.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_auth_login">
+
+        <action
+            android:id="@+id/action_fragment_login_to_fragment_register"
+            app:destination="@id/fragment_nav_register"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/slide_out_bottom"
+            app:popUpTo="@+id/fragment_nav_login" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_nav_register"
+        android:name="com.quickdev.projectdashboard.ui.auth.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/fragment_auth_register"/>
+</navigation>
