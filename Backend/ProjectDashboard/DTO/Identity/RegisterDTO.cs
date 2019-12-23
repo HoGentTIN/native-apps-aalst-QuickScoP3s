@@ -23,6 +23,8 @@ namespace ProjectDashboard.DTO.Identity {
 		[Phone]
 		public string PhoneNumber { get; set; }
 
+		public int? CompanyId { get; set; }
+
 		[Required]
 		[MinLength(6)]
 		public string Password { get; set; }

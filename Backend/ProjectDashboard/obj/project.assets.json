@@ -13358,11 +13358,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\wauti\\Visual Studio\\Projects\\ProjectDashboard\\ProjectDashboard\\ProjectDashboard.csproj",
+      "projectUniqueName": "C:\\Users\\wauti\\OneDrive\\School\\2019 - 2020\\Native Apps I - Android\\Eindproject\\Backend\\ProjectDashboard\\ProjectDashboard.csproj",
       "projectName": "ProjectDashboard",
-      "projectPath": "C:\\Users\\wauti\\Visual Studio\\Projects\\ProjectDashboard\\ProjectDashboard\\ProjectDashboard.csproj",
+      "projectPath": "C:\\Users\\wauti\\OneDrive\\School\\2019 - 2020\\Native Apps I - Android\\Eindproject\\Backend\\ProjectDashboard\\ProjectDashboard.csproj",
       "packagesPath": "C:\\Users\\wauti\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\wauti\\Visual Studio\\Projects\\ProjectDashboard\\ProjectDashboard\\obj\\",
+      "outputPath": "C:\\Users\\wauti\\OneDrive\\School\\2019 - 2020\\Native Apps I - Android\\Eindproject\\Backend\\ProjectDashboard\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

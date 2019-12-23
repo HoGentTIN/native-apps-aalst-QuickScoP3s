@@ -19,7 +19,9 @@ using Microsoft.IdentityModel.Tokens;
 using NSwag;
 using NSwag.Generation.Processors.Security;
 using ProjectDashboard.Data;
+using ProjectDashboard.Data.Repositories;
 using ProjectDashboard.Models.Domain;
+using ProjectDashboard.Models.Domain.Repositories;
 
 namespace ProjectDashboard {
 	public class Startup {
@@ -41,7 +43,7 @@ namespace ProjectDashboard {
 
 			services.AddOpenApiDocument(c => {
 				c.DocumentName = "apidocs";
-				c.Title = "FietsApp API";
+				c.Title = "Project Dashboard API";
 				c.Version = "v1";
 				c.Description = "";
 				c.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT Token", new OpenApiSecurityScheme {
@@ -105,6 +107,7 @@ namespace ProjectDashboard {
 			});
 
 			services.AddScoped<AppDataInitializer>();
+			services.AddScoped<IBaseRepository<Company>, CompanyRepository>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}

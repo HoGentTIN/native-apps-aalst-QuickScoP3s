@@ -14,3 +14,19 @@ C:\Users\wauti\Visual Studio\Projects\ProjectDashboard\ProjectDashboard\obj\Debu
 C:\Users\wauti\Visual Studio\Projects\ProjectDashboard\ProjectDashboard\bin\Debug\netcoreapp2.2\ProjectDashboard.pdb
 C:\Users\wauti\Visual Studio\Projects\ProjectDashboard\ProjectDashboard\obj\Debug\netcoreapp2.2\ProjectDashboard.dll
 C:\Users\wauti\Visual Studio\Projects\ProjectDashboard\ProjectDashboard\obj\Debug\netcoreapp2.2\ProjectDashboard.pdb
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\obj\Debug\netcoreapp2.2\ProjectDashboard.csprojAssemblyReference.cache
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\obj\Debug\netcoreapp2.2\ProjectDashboard.RazorAssemblyInfo.cache
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\obj\Debug\netcoreapp2.2\ProjectDashboard.RazorAssemblyInfo.cs
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\obj\Debug\netcoreapp2.2\ProjectDashboard.AssemblyInfoInputs.cache
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\obj\Debug\netcoreapp2.2\ProjectDashboard.AssemblyInfo.cs
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\obj\Debug\netcoreapp2.2\ProjectDashboard.dll
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\obj\Debug\netcoreapp2.2\ProjectDashboard.pdb
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\bin\Debug\netcoreapp2.2\appsettings.Development.json
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\bin\Debug\netcoreapp2.2\Properties\launchSettings.json
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\bin\Debug\netcoreapp2.2\appsettings.json
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\bin\Debug\netcoreapp2.2\ProjectDashboard.deps.json
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\bin\Debug\netcoreapp2.2\ProjectDashboard.runtimeconfig.json
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\bin\Debug\netcoreapp2.2\ProjectDashboard.runtimeconfig.dev.json
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\bin\Debug\netcoreapp2.2\ProjectDashboard.dll
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\bin\Debug\netcoreapp2.2\ProjectDashboard.pdb
+C:\Users\wauti\OneDrive\School\2019 - 2020\Native Apps I - Android\Eindproject\Backend\ProjectDashboard\obj\Debug\netcoreapp2.2\ProjectDashboard.RazorTargetAssemblyInfo.cache

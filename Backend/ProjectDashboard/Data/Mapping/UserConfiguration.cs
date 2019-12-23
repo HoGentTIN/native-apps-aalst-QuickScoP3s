@@ -31,6 +31,13 @@ namespace ProjectDashboard.Data.Mapping {
 			builder.Ignore(x => x.LockoutEnd);
 			builder.Ignore(x => x.AccessFailedCount);
 
+			builder
+				.HasOne(x => x.Company)
+				.WithMany()
+				.HasForeignKey(x => x.CompanyId)
+				.IsRequired(false)
+				.OnDelete(DeleteBehavior.Cascade);
+
 			// Identity
 			builder.HasMany<IdentityUserClaim<int>>().WithOne().HasForeignKey(uc => uc.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 			builder.HasMany<IdentityUserLogin<int>>().WithOne().HasForeignKey(ul => ul.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);

@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using ProjectDashboard.DTO.Identity;
 using ProjectDashboard.Models.Domain;
+using ProjectDashboard.Models.Domain.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -23,16 +24,19 @@ namespace ProjectDashboard.Controllers {
 
 		private readonly SignInManager<User> _signInManager;
 		private readonly UserManager<User> _userManager;
+		private readonly IBaseRepository<Company> _companyRepo;
 
 		private readonly IConfiguration _config;
 
 		public AuthController(
 			SignInManager<User> signInManager,
 			UserManager<User> userManager,
+			IBaseRepository<Company> companyRepo,
 			IConfiguration config) {
 
 			this._signInManager = signInManager;
 			this._userManager = userManager;
+			this._companyRepo = companyRepo;
 			this._config = config;
 		}
 
@@ -110,6 +114,12 @@ namespace ProjectDashboard.Controllers {
 				Email = model.Email,
 				PhoneNumber = model.PhoneNumber
 			};
+
+			if (model.CompanyId.HasValue) {
+				var company = _companyRepo.GetById(model.CompanyId.Value);
+				if (company != null)
+					user.Company = company;
+			}
 
 			IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 			if (result.Succeeded) {
