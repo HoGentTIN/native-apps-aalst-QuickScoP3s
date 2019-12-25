@@ -38,6 +38,13 @@ namespace ProjectDashboard.Data.Mapping {
 				.IsRequired(false)
 				.OnDelete(DeleteBehavior.Cascade);
 
+			builder
+				.HasMany(x => x.Tasks)
+				.WithOne(x => x.Assignee)
+				.HasForeignKey(x => x.AssigneeId)
+				.IsRequired(false)
+				.OnDelete(DeleteBehavior.SetNull);
+
 			// Identity
 			builder.HasMany<IdentityUserClaim<int>>().WithOne().HasForeignKey(uc => uc.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);
 			builder.HasMany<IdentityUserLogin<int>>().WithOne().HasForeignKey(ul => ul.UserId).IsRequired().OnDelete(DeleteBehavior.Cascade);

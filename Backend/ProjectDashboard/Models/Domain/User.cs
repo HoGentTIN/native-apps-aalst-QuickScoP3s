@@ -1,9 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using ProjectDashboard.Models.Domain.Interfaces;
 using System.Collections.Generic;
 
 namespace ProjectDashboard.Models.Domain {
-	public class User: IdentityUser<int>, IPerson {
+	public class User: IdentityUser<int> {
 
 		/// <summary>
 		/// Base64 encoded image string
@@ -22,10 +21,12 @@ namespace ProjectDashboard.Models.Domain {
 			}
 		}
 
-		public int CompanyId { get; set; }
+		public int? CompanyId { get; set; }
 
 		public Company Company { get; set; }
 
 		public ICollection<TeamMember> Teams { get; set; }
+
+		public ICollection<ProjectTask> Tasks { get; set; }
 	}
 }

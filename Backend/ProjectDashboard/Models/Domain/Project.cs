@@ -1,5 +1,4 @@
-﻿using ProjectDashboard.Models.Domain.Interfaces;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace ProjectDashboard.Models.Domain {
@@ -19,6 +18,6 @@ namespace ProjectDashboard.Models.Domain {
 
 		public Company Owner { get; set; }
 
-		public IPerson ContactPerson { get; set; } 
+		public ContactInfo ContactPerson { get; set; }
 	}
 }

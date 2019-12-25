@@ -19,7 +19,6 @@ namespace ProjectDashboard.Data {
 
 			builder.ApplyConfiguration(new UserConfiguration());
 			builder.ApplyConfiguration(new TeamMemberConfiguration());
-			builder.ApplyConfiguration(new IPersonConfiguration());
 			builder.ApplyConfiguration(new ProjectConfiguration());
 
 			builder.Entity<IdentityRole<int>>(b => {
