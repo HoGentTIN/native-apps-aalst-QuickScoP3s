@@ -3,6 +3,7 @@ package com.quickdev.projectdashboard.ui.auth
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,9 @@ import com.afollestad.vvalidator.form
 import com.google.android.material.snackbar.Snackbar
 import com.quickdev.projectdashboard.R
 import com.quickdev.projectdashboard.databinding.FragmentAuthRegisterBinding
+import com.quickdev.projectdashboard.util.assertions.CompareToAssertion
+import com.quickdev.projectdashboard.util.assertions.PhoneAssertion
 import com.quickdev.projectdashboard.viewmodels.RegisterViewModel
-
-private const val PICK_PHOTO_FOR_AVATAR: Int = 1
 
 class RegisterFragment : Fragment() {
 
@@ -27,7 +28,7 @@ class RegisterFragment : Fragment() {
         }
 
         ViewModelProviders
-                .of(this, RegisterViewModel.Factory(activity.application))
+                .of(activity, RegisterViewModel.Factory(activity.application))
                 .get(RegisterViewModel::class.java)
     }
 
@@ -46,7 +47,31 @@ class RegisterFragment : Fragment() {
 
     private fun registerValidation() {
         form {
-            //TODO Add input
+            inputLayout(binding.txtRegisterFirstName) {
+                isNotEmpty().description(R.string.error_empty)
+            }
+            inputLayout(binding.txtRegisterLastName) {
+                isNotEmpty().description(R.string.error_empty)
+            }
+            inputLayout(binding.txtRegisterEmail) {
+                isNotEmpty().description(R.string.error_empty)
+                isEmail().description(R.string.error_invalid_email)
+            }
+            inputLayout(binding.txtRegisterPhone) {
+                isNotEmpty().description(R.string.error_empty)
+                assert(PhoneAssertion()).description(R.string.error_invalid_phonenr)
+            }
+            inputLayout(binding.txtRegisterPassword) {
+                isNotEmpty().description(R.string.error_empty)
+                length().atLeast(6).description(R.string.error_invalid_password)
+            }
+            inputLayout(binding.txtRegisterPasswordConfirm) {
+                isNotEmpty().description(R.string.error_empty)
+                assert(CompareToAssertion(binding.txtRegisterPassword)).description(R.string.error_invalid_passwordConfirm)
+            }
+            submitWith(binding.btnRegister) {
+                binding.viewModel?.registerUser()
+            }
         }
     }
 
@@ -74,12 +99,13 @@ class RegisterFragment : Fragment() {
     }
 
     private fun registerListeners() {
-//        binding.imgRegisterProfile.setOnClickListener { pickUserPicture() }
-//        binding.btnRegistreren.setOnClickListener { this.validator.validate() }
-//        binding.btnRegistrerenClearPicture.setOnClickListener {
-//            binding.imgRegisterProfile.setImageResource(R.drawable.profile)
-//            binding.viewModel?.changePicture(null)
-//        }
+        binding.imgRegisterProfile.setOnClickListener { pickUserPicture() }
+        binding.txtRegisterCompany.setOnClickListener { view: View ->
+            //view.findNavController().navigate(R.id.action_fragment_login_to_fragment_register)
+        }
+        binding.btnRegistrerenClearPicture.setOnClickListener {
+            binding.viewModel?.clearProfilePicture()
+        }
     }
 
     private fun pickUserPicture() {
@@ -92,13 +118,12 @@ class RegisterFragment : Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode == PICK_PHOTO_FOR_AVATAR && resultCode == Activity.RESULT_OK) {
-            if (data != null) {
-
-            }
+            if (data != null && data.data != null)
+                binding.viewModel?.setProfilePicture(data.data!!)
         }
     }
 
-    private fun registerUser() {
-        binding.viewModel?.registerUser()
+    companion object {
+        private const val PICK_PHOTO_FOR_AVATAR: Int = 1
     }
 }

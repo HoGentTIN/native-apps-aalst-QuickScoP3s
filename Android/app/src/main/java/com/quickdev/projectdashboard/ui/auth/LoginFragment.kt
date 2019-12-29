@@ -61,7 +61,7 @@ class LoginFragment : Fragment() {
                 isNotEmpty().description(R.string.error_empty)
             }
             submitWith(binding.btnLogin) {
-                loginUser()
+                binding.viewModel?.loginUser()
             }
         }
     }
@@ -87,9 +87,5 @@ class LoginFragment : Fragment() {
                 }
             }
         })
-    }
-
-    private fun loginUser() {
-        binding.viewModel?.loginUser()
     }
 }

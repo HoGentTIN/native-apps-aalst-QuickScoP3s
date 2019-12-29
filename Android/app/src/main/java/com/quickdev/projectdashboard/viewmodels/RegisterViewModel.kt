@@ -1,8 +1,11 @@
 package com.quickdev.projectdashboard.viewmodels
 
 import android.app.Application
+import android.net.Uri
+import android.view.View
 import androidx.lifecycle.*
 import com.quickdev.projectdashboard.data.UserHelper
+import com.quickdev.projectdashboard.data.UserPictureHelper
 import com.quickdev.projectdashboard.data.network.AuthService
 import com.quickdev.projectdashboard.models.DTO.RegisterDTO
 import com.quickdev.projectdashboard.models.domain.Company
@@ -14,17 +17,31 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     private val context = getApplication<Application>().applicationContext
     private val userHelper = UserHelper(context)
 
-    private val _picture = MutableLiveData<String>()
+    private val _picture = MutableLiveData<String>("")
     val picture: LiveData<String>
         get() = _picture
+
+    val canClearPicture: LiveData<Int> = Transformations.map(_picture) { x -> if ((x ?: "").isEmpty()) View.GONE else View.VISIBLE}
 
     val firstName = MutableLiveData<String>("")
     val lastName = MutableLiveData<String>("")
     val email = MutableLiveData<String>("")
     val phoneNr = MutableLiveData<String>("")
 
+    val company = MutableLiveData<Company>(null)
+
     val password = MutableLiveData<String>("")
     val passwordConfirm = MutableLiveData<String>("")
+
+    fun clearProfilePicture() {
+        _picture.value = null
+    }
+
+    fun setProfilePicture(uri: Uri) {
+        val stream = context.contentResolver.openInputStream(uri)
+        if (stream != null)
+            _picture.value = UserPictureHelper.encodePicture(stream)
+    }
 
     private val _registerResponse = MutableLiveData<Int>()
     val registerResponse: LiveData<Int>
@@ -32,8 +49,8 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
 
     fun registerUser() {
         viewModelScope.launch {
-            val company = Company(name = "", address = "")
-            val registerCall = AuthService.HTTP.registerUser(RegisterDTO(picture.value!!, firstName.value!!, lastName.value!!, email.value!!, phoneNr.value!!, company, password.value!!, passwordConfirm.value!!))
+            val companyId = company.value?.id
+            val registerCall = AuthService.HTTP.registerUser(RegisterDTO(picture.value!!, firstName.value!!, lastName.value!!, email.value!!, phoneNr.value!!, companyId, password.value!!, passwordConfirm.value!!))
             try {
                 val result = registerCall.await()
                 userHelper.saveUser(result.authToken, result.picture)

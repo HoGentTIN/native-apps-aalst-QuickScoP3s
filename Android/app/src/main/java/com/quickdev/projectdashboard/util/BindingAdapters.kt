@@ -1,17 +1,33 @@
 package com.quickdev.projectdashboard.util
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
 import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
+import android.widget.ImageView
 import android.widget.Spinner
+import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
+import com.quickdev.projectdashboard.data.UserPictureHelper
 import com.quickdev.projectdashboard.util.converters.DateFormatter
 import java.time.LocalDate
 import java.util.*
+
+@BindingAdapter(value = ["srcStr", "srcDefault"], requireAll = false)
+fun setImageSource(view: ImageView, source: String?, sourceDefault: Drawable?) {
+    when {
+        (source ?: "").isNotEmpty() -> {
+            val img = UserPictureHelper.decodeImage(source)
+            view.setImageBitmap(img)
+        }
+        sourceDefault != null -> view.setImageDrawable(sourceDefault)
+        else -> view.setImageDrawable(null)
+    }
+}
 
 /****** CALENDARVIEW BINDING ADAPTERS ******/
 

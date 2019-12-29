@@ -22,7 +22,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField 'String', 'BASE_URL', '\"https://project-dashboard.azurewebsites.net/api/\"'
+        buildConfigField 'String', 'BASE_URL', '\"https://projectdashboard.azurewebsites.net/api/\"'
         buildConfigField 'Boolean', 'IsEmulator', 'false'
 
         javaCompileOptions {
@@ -134,7 +134,6 @@ dependencies {
     implementation "com.afollestad.material-dialogs:bottomsheets:$version_matDialogs"
     implementation "com.afollestad.material-dialogs:lifecycle:$version_matDialogs"
     implementation 'com.afollestad:vvalidator:0.5.2'
-    implementation 'com.afollestad:recyclical:1.1.1'
     implementation 'com.afollestad:material-cab:2.0.1'
 
     // Testing

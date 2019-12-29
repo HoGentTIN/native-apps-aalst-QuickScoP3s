@@ -15,11 +15,10 @@
         <action
             android:id="@+id/action_fragment_login_to_fragment_register"
             app:destination="@id/fragment_nav_register"
-            app:enterAnim="@anim/slide_in_bottom"
-            app:exitAnim="@anim/fade_out"
-            app:popEnterAnim="@anim/fade_in"
-            app:popExitAnim="@anim/slide_out_bottom"
-            app:popUpTo="@+id/fragment_nav_login" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/scale_down_left"
+            app:popEnterAnim="@anim/scale_up_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment

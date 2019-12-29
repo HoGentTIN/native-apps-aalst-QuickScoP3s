@@ -6,10 +6,10 @@
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorPrimaryDark">@color/primaryDarkColor</item>
         <item name="colorPrimaryVariant">@color/primaryLightColor</item>
-        <item name="colorOnPrimary">@color/secondaryTextColor</item>
+        <item name="colorOnPrimary">@color/primaryTextColor</item>
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
-        <item name="colorOnSecondary">@color/secondaryTextColor</item>
+        <item name="colorOnSecondary">@color/primaryTextColor</item>
 
         <item name="android:fontFamily">@font/roboto</item>
         <item name="fontFamily">@font/roboto</item>
@@ -29,12 +29,12 @@
 
     <style name="TextAppearance.ListItem.Secondary" parent="TextAppearance.AppCompat">
         <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@color/primaryDimTextColor</item>
+        <item name="android:textColor">@color/dimTextColor</item>
     </style>
 
     <style name="TextAppearance.ListItem.Meta" parent="TextAppearance.AppCompat">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@color/primaryDimTextColor</item>
+        <item name="android:textColor">@color/dimTextColor</item>
     </style>
 
     <!-- Default Material Style -->
@@ -70,11 +70,5 @@
 
         <item name="android:paddingTop">28dp</item>
         <item name="android:paddingBottom">8dp</item>
-    </style>
-
-    <style name="Widget.MaterialComponents"
-        parent="Widget.MaterialComponents.Button"
-        tools:override="true">
-
     </style>
 </resources>

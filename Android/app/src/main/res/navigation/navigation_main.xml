@@ -8,6 +8,6 @@
 
     <fragment
         android:id="@+id/fragment_nav_projects_overview"
-        android:name="com.quickdev.projectdashboard.ui.projects.ProjectsOverviewFragment"
-        tools:layout="@layout/projects_fragment_overview"/>
+        android:name="com.quickdev.projectdashboard.ui.home.ProjectsOverviewFragment"
+        tools:layout="@layout/fragment_projects_overview"/>
 </navigation>

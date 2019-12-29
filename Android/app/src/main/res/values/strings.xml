@@ -1,18 +1,28 @@
 <resources>
     <string name="app_name">Project Dashboard</string>
 
+    <string name="nav_projects">Projects</string>
+    <string name="nav_teams">Teams</string>
+    <string name="nav_profile">Profile</string>
+
     <string name="action_login">Login</string>
     <string name="action_forgotpassword">Forgot Password?</string>
     <string name="action_register">Register</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
+    <string name="hint_password_confirm">Confirm Password</string>
+    <string name="hint_first_name">First Name</string>
+    <string name="hint_last_name">Last Name</string>
+    <string name="hint_phone">Phone Number</string>
+    <string name="hint_company">Company</string>
+    <string name="hint_optional">optional</string>
 
     <string name="desc_img_logo">Project Dashboard logo</string>
+    <string name="desc_remove_picture">Remove Picture</string>
 
-    <string name="action_profile">Profile</string>
-    <string name="action_projects">Projects</string>
-    <string name="action_teams">Teams</string>
+    <string name="label_tasks">%s Open Task(s)</string>
+    <string name="label_members">%s Member(s)</string>
 
     <!-- VALIDATION ERROR -->
     <string name="error_empty">This field is required</string>

@@ -6,9 +6,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.quickdev.projectdashboard.data.UserHelper
 
-private const val LOGININ_USER: Int = 0
-private const val LOAD_USER_DETAILS: Int = 1
-
 class StartupActivity : AppCompatActivity() {
 
     private lateinit var userHelper: UserHelper
@@ -26,7 +23,7 @@ class StartupActivity : AppCompatActivity() {
             return
         }
 
-        //startActivityForResult(Intent(this, LoadingActivity::class.java), LOAD_USER_DETAILS)
+        startApp()
     }
 
     private fun startApp() {
@@ -37,12 +34,11 @@ class StartupActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == LOGININ_USER && resultCode == Activity.RESULT_OK) {
+        if (requestCode == LOGININ_USER && resultCode == Activity.RESULT_OK)
             runStartup()
-        }
-        else if (requestCode == LOAD_USER_DETAILS) {
-            if (resultCode == Activity.RESULT_OK)
-                startApp()
-        }
+    }
+
+    companion object {
+        private const val LOGININ_USER: Int = 0
     }
 }
