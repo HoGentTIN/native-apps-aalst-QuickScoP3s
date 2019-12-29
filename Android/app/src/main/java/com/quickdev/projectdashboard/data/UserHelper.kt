@@ -32,11 +32,11 @@ class UserHelper(context: Context) {
 
         val jwt = JWT(authToken!!)
 
-        val id = jwt.getClaim("id").asInt()!!
+        val id = jwt.getClaim("sub").asInt()!!
         val email = jwt.getClaim("email").asString()!!
-        val firstName = jwt.getClaim("voornaam").asString()!!
-        val lastName = jwt.getClaim("familienaam").asString()!!
-        val phoneNr = jwt.getClaim("telNr").asString()!!
+        val firstName = jwt.getClaim("given_name").asString()!!
+        val lastName = jwt.getClaim("family_name").asString()!!
+        val phoneNr = jwt.getClaim("phone_number").asString()!!
         val companyStr = jwt.getClaim("company").asString()!!
 
         val moshi = Moshi.Builder().build()
@@ -71,7 +71,7 @@ object UserPictureHelper {
         if (base64String == null || base64String.isBlank())
             return null
 
-        val decodedString = Base64.decode(base64String, Base64.DEFAULT)
+        val decodedString = Base64.decode(base64String, Base64.NO_WRAP)
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
     }
 
@@ -92,6 +92,6 @@ object UserPictureHelper {
         }
 
         bytes = output.toByteArray()
-        return Base64.encodeToString(bytes, Base64.DEFAULT)
+        return Base64.encodeToString(bytes, Base64.NO_WRAP)
     }
 }
