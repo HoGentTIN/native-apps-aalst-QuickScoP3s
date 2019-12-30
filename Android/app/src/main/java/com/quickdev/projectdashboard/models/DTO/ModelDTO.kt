@@ -1,4 +1,5 @@
 package com.quickdev.projectdashboard.models.DTO
 
-interface ModelDTO {
+interface ModelDTO<T> {
+    fun toModel(): T
 }

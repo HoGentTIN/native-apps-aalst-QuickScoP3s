@@ -108,6 +108,7 @@ namespace ProjectDashboard {
 
 			services.AddScoped<AppDataInitializer>();
 			services.AddScoped<IBaseRepository<Company>, CompanyRepository>();
+			services.AddScoped<IBaseRepository<Project>, ProjectRepository>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}

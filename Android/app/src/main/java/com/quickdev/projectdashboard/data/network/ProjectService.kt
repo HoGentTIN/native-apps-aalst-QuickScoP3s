@@ -1,30 +1,36 @@
 package com.quickdev.projectdashboard.data.network
 
 import com.quickdev.projectdashboard.models.DTO.CompanyDTO
+import com.quickdev.projectdashboard.models.DTO.ProjectDTO
 import com.quickdev.projectdashboard.models.domain.Company
+import com.quickdev.projectdashboard.models.domain.Project
 import kotlinx.coroutines.Deferred
 import retrofit2.http.*
 
-interface CompanyApiService {
+interface ProjectApiService {
 
-    @GET("companies")
-    fun getAll(): Deferred<List<Company>>
+    @GET(BASE_URL)
+    fun getAll(): Deferred<List<ProjectDTO>>
 
-    @GET("companies/{id}")
-    fun getById(@Path("id") id: Int): Deferred<Company>
+    @GET("$BASE_URL/{id}")
+    fun getById(@Path("id") id: Int): Deferred<ProjectDTO>
 
-    @POST("companies")
-    fun post(@Body dto: CompanyDTO): Deferred<Company>
-
-
-    @PUT("companies/{id}")
-    fun put(@Path("id") id: Int, @Body dto: CompanyDTO): Deferred<Unit>
+    @POST(BASE_URL)
+    fun post(@Body dto: ProjectDTO): Deferred<ProjectDTO>
 
 
-    @DELETE("companies/{id}")
-    fun put(@Path("id") id: Int): Deferred<Company>
+    @PUT("$BASE_URL/{id}")
+    fun put(@Path("id") id: Int, @Body dto: ProjectDTO): Deferred<Unit>
+
+
+    @DELETE("$BASE_URL/{id}")
+    fun put(@Path("id") id: Int): Deferred<ProjectDTO>
+
+    companion object {
+        private const val BASE_URL: String = "projects"
+    }
 }
 
-object CompanyService {
-    val HTTP: CompanyApiService by lazy { BaseService.RETROFIT.create(CompanyApiService::class.java) }
+object ProjectService {
+    val HTTP: ProjectApiService by lazy { BaseService.RETROFIT.create(ProjectApiService::class.java) }
 }

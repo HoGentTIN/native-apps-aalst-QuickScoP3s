@@ -1,7 +1,9 @@
 package com.quickdev.projectdashboard.models.domain
 
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.Index
+import java.time.LocalDate
 import java.util.*
 
 @Entity(
@@ -13,9 +15,13 @@ import java.util.*
 data class Project(
     val id: Int = 0,
     val name: String,
-    val lastEdit: Date,
+    val lastEdit: LocalDate,
+
     val team: String,
     val tasks: String,
-    val owner: Company,
-    val contact: User
+
+    val ownerId: Int,
+
+    @Embedded
+    val contact: ContactInfo
 )

@@ -12,22 +12,22 @@ namespace ProjectDashboard.Controllers {
 	[Produces("application/json")]
 	[Route("api/[controller]")]
 	[ApiController]
-	public class CompaniesController : ControllerBase {
+	public class ProjectsController : ControllerBase {
 
-		private readonly IBaseRepository<Company> _companyRepo;
+		private readonly IBaseRepository<Project> _projectRepo;
 
-		public CompaniesController(IBaseRepository<Company> companyRepo) {
-			this._companyRepo = companyRepo;
+		public ProjectsController(IBaseRepository<Project> projectRepo) {
+			this._projectRepo = projectRepo;
 		}
 
 		[HttpGet]
-		public IEnumerable<Company> GetAll() {
-			return _companyRepo.GetAll();
+		public IEnumerable<Project> GetAll() {
+			return _projectRepo.GetAll();
 		}
 
 		[HttpGet("{id}")]
-		public ActionResult<Company> GetById(int id) {
-			Company item = _companyRepo.GetById(id);
+		public ActionResult<Project> GetById(int id) {
+			Project item = _projectRepo.GetById(id);
 			if (item == null)
 				return NotFound();
 
@@ -35,38 +35,38 @@ namespace ProjectDashboard.Controllers {
 		}
 
 		[HttpPost]
-		public IActionResult Post(CompanyDTO model) {
-			Company item = new Company();
+		public IActionResult Post(ProjectDTO model) {
+			Project item = new Project();
 			model.UpdateFromModel(item);
 
-			_companyRepo.Add(item);
-			_companyRepo.SaveChanges();
+			_projectRepo.Add(item);
+			_projectRepo.SaveChanges();
 
 			return CreatedAtAction(nameof(GetAll), item);
 		}
 
 		[HttpPut("{id}")]
-		public IActionResult Put(int id, CompanyDTO model) {
-			Company item = _companyRepo.GetById(id);
+		public IActionResult Put(int id, ProjectDTO model) {
+			Project item = _projectRepo.GetById(id);
 			if (item == null)
 				return NotFound();
 
 			model.UpdateFromModel(item);
 
-			_companyRepo.Add(item);
-			_companyRepo.SaveChanges();
+			_projectRepo.Add(item);
+			_projectRepo.SaveChanges();
 
 			return NoContent();
 		}
 
 		[HttpDelete("{id}")]
 		public IActionResult Delete(int id) {
-			Company item = _companyRepo.GetById(id);
+			Project item = _projectRepo.GetById(id);
 			if (item == null)
 				return NotFound();
 
-			_companyRepo.Remove(item);
-			_companyRepo.SaveChanges();
+			_projectRepo.Remove(item);
+			_projectRepo.SaveChanges();
 
 			return Ok(item);
 		}
