@@ -7,7 +7,7 @@ import androidx.lifecycle.*
 import com.quickdev.projectdashboard.data.UserHelper
 import com.quickdev.projectdashboard.data.UserPictureHelper
 import com.quickdev.projectdashboard.data.network.AuthService
-import com.quickdev.projectdashboard.models.DTO.RegisterDTO
+import com.quickdev.projectdashboard.models.DTO.identity.RegisterDTO
 import com.quickdev.projectdashboard.models.domain.Company
 import kotlinx.coroutines.launch
 import retrofit2.HttpException

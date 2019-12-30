@@ -6,14 +6,19 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.quickdev.projectdashboard.models.domain.Company
 import com.quickdev.projectdashboard.models.domain.Project
+import com.quickdev.projectdashboard.models.domain.Team
+import com.quickdev.projectdashboard.models.domain.User
 
 @Database(
-    entities = [Project::class, Company::class],
+    entities = [Company::class, Project::class, Team::class, User::class],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
+    abstract val companyDao: CompanyDao
     abstract val projectDao: ProjectDao
+    abstract val teamDao: TeamDao
+    abstract val userDao: UserDao
 }
 
 @Volatile

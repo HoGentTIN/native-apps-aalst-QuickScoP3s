@@ -1,10 +1,8 @@
 package com.quickdev.projectdashboard.models.domain
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.Index
+import androidx.room.*
+import com.quickdev.projectdashboard.util.converters.DateConverter
 import java.time.LocalDate
-import java.util.*
 
 @Entity(
     tableName = "projects",
@@ -12,16 +10,22 @@ import java.util.*
         Index(value = ["id"], unique = true)
     ]
 )
+@TypeConverters(value = [DateConverter::class])
 data class Project(
+    @PrimaryKey(autoGenerate = false)
     val id: Int = 0,
     val name: String,
     val lastEdit: LocalDate,
-
-    val team: String,
+    val teamId: Int,
     val tasks: String,
-
     val ownerId: Int,
 
     @Embedded
-    val contact: ContactInfo
+    val contact: ContactInfo,
+
+    @Ignore
+    var owner: Company? = null,
+
+    @Ignore
+    var team: Team? = null
 )

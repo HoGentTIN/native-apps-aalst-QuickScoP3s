@@ -16,7 +16,7 @@ interface ProjectDao {
     fun update(item: Project)
 
     @Query("SELECT * FROM projects ORDER BY lastEdit DESC")
-    fun getProjects(): List<Project>
+    fun getAll(): List<Project>
 
     @Query("SELECT * FROM projects WHERE id = :id")
     fun getById(id: Int): Project

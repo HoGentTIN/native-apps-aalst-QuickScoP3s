@@ -20,6 +20,7 @@
 
     <string name="desc_img_logo">Project Dashboard logo</string>
     <string name="desc_remove_picture">Remove Picture</string>
+    <string name="desc_no_content">No Content</string>
 
     <string name="label_tasks">%s Open Task(s)</string>
     <string name="label_members">%s Member(s)</string>

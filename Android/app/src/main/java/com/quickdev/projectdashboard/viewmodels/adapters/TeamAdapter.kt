@@ -5,15 +5,15 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.quickdev.projectdashboard.databinding.ListitemProjectBinding
-import com.quickdev.projectdashboard.models.domain.Project
+import com.quickdev.projectdashboard.databinding.ListitemTeamBinding
+import com.quickdev.projectdashboard.models.domain.Team
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ProjectAdapter(private val clickListener: ProjectItemClickListener):
-    ListAdapter<ProjectAdapter.DataItem, RecyclerView.ViewHolder>(ProjectDiffCallback()) {
+class TeamAdapter(private val clickListener: TeamItemClickListener):
+    ListAdapter<TeamAdapter.DataItem, RecyclerView.ViewHolder>(ProjectDiffCallback()) {
 
     companion object {
         private const val ITEM_VIEW_TYPE_ITEM = 1
@@ -21,7 +21,7 @@ class ProjectAdapter(private val clickListener: ProjectItemClickListener):
 
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
-    fun setList(list: List<Project>?) {
+    fun setList(list: List<Team>?) {
         adapterScope.launch {
             val items = list?.map {DataItem.Item(it) }
 
@@ -35,7 +35,7 @@ class ProjectAdapter(private val clickListener: ProjectItemClickListener):
         when (holder) {
             is ViewHolder -> {
                 val item = getItem(position) as DataItem.Item
-                holder.bind(clickListener, item.project)
+                holder.bind(clickListener, item.team)
             }
         }
     }
@@ -53,10 +53,10 @@ class ProjectAdapter(private val clickListener: ProjectItemClickListener):
         }
     }
 
-    class ViewHolder private constructor(private val binding: ListitemProjectBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder private constructor(private val binding: ListitemTeamBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(clickListener: ProjectItemClickListener, item: Project) {
-            binding.project = item
+        fun bind(clickListener: TeamItemClickListener, item: Team) {
+            binding.team = item
             binding.clickListener = clickListener
 
             binding.executePendingBindings()
@@ -65,7 +65,7 @@ class ProjectAdapter(private val clickListener: ProjectItemClickListener):
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListitemProjectBinding.inflate(layoutInflater, parent, false)
+                val binding = ListitemTeamBinding.inflate(layoutInflater, parent, false)
 
                 return ViewHolder(binding)
             }
@@ -84,14 +84,14 @@ class ProjectAdapter(private val clickListener: ProjectItemClickListener):
     }
 
     sealed class DataItem {
-        data class Item(val project: Project) : DataItem() {
-            override val id = project.id
+        data class Item(val team: Team) : DataItem() {
+            override val id = team.id
         }
 
         abstract val id: Int
     }
 }
 
-class ProjectItemClickListener(val clickListener: (projectId: Int) -> Unit) {
-    fun onClick(project: Project) = clickListener(project.id)
+class TeamItemClickListener(val clickListener: (teamId: Int) -> Unit) {
+    fun onClick(team: Team) = clickListener(team.id)
 }

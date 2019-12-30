@@ -1,8 +1,8 @@
-package com.quickdev.projectdashboard.models.DTO
+package com.quickdev.projectdashboard.models.DTO.identity
 
 import com.squareup.moshi.Json
 
-data class UserDTO(
+data class AuthDTO(
 
     @Json(name = "token")
     val authToken: String,

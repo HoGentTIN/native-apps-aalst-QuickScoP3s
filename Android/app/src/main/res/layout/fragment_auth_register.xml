@@ -26,13 +26,13 @@
                 android:layout_height="96dp"
                 android:layout_marginTop="@dimen/padding_large"
                 app:srcStr="@{viewModel.picture}"
-                app:srcDefault="@{@drawable/profile}"
+                app:srcDefault="@{@drawable/img_profile}"
                 app:civ_border_color="@color/primaryColor"
                 app:civ_border_width="2dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/profile"/>
+                tools:src="@drawable/img_profile"/>
 
             <ImageButton
                 android:id="@+id/btn_registreren_clearPicture"

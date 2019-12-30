@@ -4,10 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_main"
-    app:startDestination="@id/fragment_nav_projects_overview">
+    app:startDestination="@id/fragment_nav_projects">
 
     <fragment
-        android:id="@+id/fragment_nav_projects_overview"
-        android:name="com.quickdev.projectdashboard.ui.home.ProjectsOverviewFragment"
-        tools:layout="@layout/fragment_projects_overview"/>
+        android:id="@+id/fragment_nav_projects"
+        android:name="com.quickdev.projectdashboard.ui.home.ProjectsFragment"
+        android:label="Projects"
+        tools:layout="@layout/fragment_home_projects" />
+
+    <fragment
+        android:id="@+id/fragment_nav_teams"
+        android:name="com.quickdev.projectdashboard.ui.home.TeamsFragment"
+        android:label="Teams"
+        tools:layout="@layout/fragment_home_teams" />
 </navigation>

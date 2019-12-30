@@ -1,13 +1,15 @@
 package com.quickdev.projectdashboard.models.domain.repositories
 
-import com.quickdev.projectdashboard.data.database.ProjectDao
+import com.quickdev.projectdashboard.data.database.AppDatabase
 import com.quickdev.projectdashboard.data.network.ProjectService
 import com.quickdev.projectdashboard.models.domain.Project
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.lang.Exception
 
-class ProjectRepository(private val projectDao: ProjectDao) {
+class ProjectRepository(database: AppDatabase) {
+
+    private val projectDao = database.projectDao
+    private val teamDao = database.teamDao
 
     suspend fun getProjects(): List<Project> {
         return withContext(Dispatchers.IO) {
@@ -19,7 +21,12 @@ class ProjectRepository(private val projectDao: ProjectDao) {
             }
             catch (e: Exception) { }
 
-            projectDao.getProjects()
+            val projects = projectDao.getAll()
+            projects.forEach { project -> // Fill all objects
+                project.team = teamDao.getById(project.teamId)
+            }
+
+            projects
         }
     }
 
@@ -32,7 +39,10 @@ class ProjectRepository(private val projectDao: ProjectDao) {
             }
             catch (e: Exception) { }
 
-            projectDao.getById(id)
+            val project = projectDao.getById(id)
+            project.team = teamDao.getById(project.teamId)
+
+            project
         }
     }
 }

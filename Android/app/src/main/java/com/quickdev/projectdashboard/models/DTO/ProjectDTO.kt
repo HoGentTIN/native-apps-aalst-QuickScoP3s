@@ -17,7 +17,7 @@ data class ProjectDTO(
         return Project(
             id = id,
             name = name,
-            team = "", // TODO fix this
+            teamId = teamId,
             tasks = "",
             ownerId = ownerId,
             lastEdit = lastEdit,

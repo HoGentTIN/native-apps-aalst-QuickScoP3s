@@ -5,10 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Base64
 import com.auth0.android.jwt.JWT
-import com.quickdev.projectdashboard.models.domain.Company
 import com.quickdev.projectdashboard.models.domain.User
-import com.squareup.moshi.JsonAdapter
-import com.squareup.moshi.Moshi
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
@@ -37,13 +34,9 @@ class UserHelper(context: Context) {
         val firstName = jwt.getClaim("given_name").asString()!!
         val lastName = jwt.getClaim("family_name").asString()!!
         val phoneNr = jwt.getClaim("phone_number").asString()!!
-        val companyStr = jwt.getClaim("company").asString()!!
+        val companyId = jwt.getClaim("company").asInt()
 
-        val moshi = Moshi.Builder().build()
-        val adapter: JsonAdapter<Company> = moshi.adapter(Company::class.java)
-        val company = adapter.fromJson(companyStr)!!
-
-        return User(id, afbeelding, firstName, lastName, email, phoneNr, company)
+        return User(id, afbeelding, firstName, lastName, email, phoneNr, companyId)
     }
 
     fun signOut() {

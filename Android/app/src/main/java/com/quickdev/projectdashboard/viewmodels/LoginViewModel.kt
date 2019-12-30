@@ -4,10 +4,9 @@ import android.app.Application
 import androidx.lifecycle.*
 import com.quickdev.projectdashboard.data.UserHelper
 import com.quickdev.projectdashboard.data.network.AuthService
-import com.quickdev.projectdashboard.models.DTO.LoginDTO
+import com.quickdev.projectdashboard.models.DTO.identity.LoginDTO
 import kotlinx.coroutines.launch
 import java.io.InterruptedIOException
-import retrofit2.HttpException as HttpException1
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
