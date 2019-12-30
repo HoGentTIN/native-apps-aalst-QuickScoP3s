@@ -60,6 +60,10 @@ namespace ProjectDashboard {
 					policy.RequireClaim(ClaimTypes.Role, "Admin");
 				});
 
+				options.AddPolicy("CompanyAdmin", policy => {
+					policy.RequireClaim(ClaimTypes.Role, "CompanyAdmin");
+				});
+
 				options.AddPolicy("User", policy => {
 					policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
 					policy.RequireAuthenticatedUser();
@@ -109,6 +113,8 @@ namespace ProjectDashboard {
 			services.AddScoped<AppDataInitializer>();
 			services.AddScoped<IBaseRepository<Company>, CompanyRepository>();
 			services.AddScoped<IBaseRepository<Project>, ProjectRepository>();
+			services.AddScoped<IBaseRepository<Team>, TeamsRepository>();
+			services.AddScoped<IBaseRepository<User>, UserRepository>();
 
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 		}

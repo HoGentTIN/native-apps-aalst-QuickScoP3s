@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using ProjectDashboard.DTO;
 using ProjectDashboard.Models.Domain;
@@ -12,6 +13,7 @@ namespace ProjectDashboard.Controllers {
 	[Produces("application/json")]
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class CompaniesController : ControllerBase {
 
 		private readonly IBaseRepository<Company> _companyRepo;
@@ -35,6 +37,7 @@ namespace ProjectDashboard.Controllers {
 		}
 
 		[HttpPost]
+		[Authorize(Policy = "CompanyAdmin")]
 		public IActionResult Post(CompanyDTO model) {
 			Company item = new Company();
 			model.UpdateFromModel(item);
@@ -46,6 +49,7 @@ namespace ProjectDashboard.Controllers {
 		}
 
 		[HttpPut("{id}")]
+		[Authorize(Policy = "CompanyAdmin")]
 		public IActionResult Put(int id, CompanyDTO model) {
 			Company item = _companyRepo.GetById(id);
 			if (item == null)
@@ -60,6 +64,7 @@ namespace ProjectDashboard.Controllers {
 		}
 
 		[HttpDelete("{id}")]
+		[Authorize(Policy = "CompanyAdmin")]
 		public IActionResult Delete(int id) {
 			Company item = _companyRepo.GetById(id);
 			if (item == null)

@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 using ProjectDashboard.DTO;
 using ProjectDashboard.Models.Domain;
 using ProjectDashboard.Models.Domain.Repositories;
-
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 
 namespace ProjectDashboard.Controllers {
 
@@ -12,6 +15,7 @@ namespace ProjectDashboard.Controllers {
 	[Produces("application/json")]
 	[Route("api/[controller]")]
 	[ApiController]
+	[Authorize]
 	public class ProjectsController : ControllerBase {
 
 		private readonly IBaseRepository<Project> _projectRepo;
@@ -22,7 +26,8 @@ namespace ProjectDashboard.Controllers {
 
 		[HttpGet]
 		public IEnumerable<Project> GetAll() {
-			return _projectRepo.GetAll();
+			var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+			return _projectRepo.GetAll().Where(x => x.Team.LeadId == userId || x.Team.Members.Any(y => y.MemberId == userId));
 		}
 
 		[HttpGet("{id}")]
@@ -39,6 +44,8 @@ namespace ProjectDashboard.Controllers {
 			Project item = new Project();
 			model.UpdateFromModel(item);
 
+			item.LastEdit = DateTime.Now;
+
 			_projectRepo.Add(item);
 			_projectRepo.SaveChanges();
 
@@ -52,6 +59,7 @@ namespace ProjectDashboard.Controllers {
 				return NotFound();
 
 			model.UpdateFromModel(item);
+			item.LastEdit = DateTime.Now;
 
 			_projectRepo.Add(item);
 			_projectRepo.SaveChanges();

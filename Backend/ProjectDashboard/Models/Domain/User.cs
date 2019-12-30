@@ -28,5 +28,15 @@ namespace ProjectDashboard.Models.Domain {
 		public ICollection<TeamMember> Teams { get; set; }
 
 		public ICollection<ProjectTask> Tasks { get; set; }
+
+		public User() { }
+
+		public User(string firstName, string lastName, string email, string phoneNumber, Company company = null) {
+			this.FirstName = firstName;
+			this.LastName = lastName;
+			this.Email = email;
+			this.PhoneNumber = phoneNumber;
+			this.Company = company;
+		}
 	}
 }

@@ -30,6 +30,24 @@ namespace ProjectDashboard.Data {
 				Company company6 = new Company { Name = "InThePocket", Address = "Sassevaartstraat 46/401, 9000 Ghent, Belgium" };
 
 				_context.Companies.AddRange(company1, company2, company3, company4, company5, company6);
+				_context.SaveChanges();
+
+
+				User demoUser = new User("Demo", "User", "demo.user@realdolmen.be", "+32400000000", company5);
+				await _userManager.CreateAsync(demoUser, "DemoPassword");
+
+				Team team = new Team("Team Project X", demoUser);
+				_context.Teams.AddRange(team);
+				_context.SaveChanges();
+
+				Project project = new Project("Project X", team, company5, new ContactInfo("Antony", "Contact", "antonyc@realdolmen.be", "+32400000000"));
+				project.Tasks.Add(new ProjectTask("Create the project", project, demoUser));
+				project.Tasks.Add(new ProjectTask("Add initial views", project));
+				project.Tasks.Add(new ProjectTask("Add initial models", project));
+				project.Tasks.Add(new ProjectTask("Add initial viewmodels", project));
+
+				_context.Projects.AddRange(project);
+				_context.SaveChanges();
 			}
 		}
 	}

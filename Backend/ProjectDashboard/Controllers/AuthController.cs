@@ -69,6 +69,7 @@ namespace ProjectDashboard.Controllers {
 			  new Claim("given_name", user.FirstName),
 			  new Claim("family_name", user.LastName),
 			  new Claim("phone_number", user.PhoneNumber),
+			  new Claim("company", user.CompanyId?.ToString()),
 			  
 			  new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
 			};

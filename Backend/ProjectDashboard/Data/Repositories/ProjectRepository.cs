@@ -1,10 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ProjectDashboard.Models.Domain;
 using ProjectDashboard.Models.Domain.Repositories;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProjectDashboard.Data.Repositories {
 	public class ProjectRepository : IBaseRepository<Project> {
@@ -18,11 +16,21 @@ namespace ProjectDashboard.Data.Repositories {
 		}
 
 		public IEnumerable<Project> GetAll() {
-			return _projects.AsNoTracking().ToList();
+			return _projects.AsNoTracking()
+				.Include(x => x.Owner)
+				.Include(x => x.Team).ThenInclude(x => x.Lead)
+				.Include(x => x.Team).ThenInclude(x => x.Members).ThenInclude(x => x.Member)
+				.Include(x => x.Tasks).ThenInclude(x => x.Assignee)
+				.ToList();
 		}
 
 		public Project GetById(int id) {
-			return _projects.SingleOrDefault(x => x.Id == id);
+			return _projects
+				.Include(x => x.Owner)
+				.Include(x => x.Team).ThenInclude(x => x.Lead)
+				.Include(x => x.Team).ThenInclude(x => x.Members).ThenInclude(x => x.Member)
+				.Include(x => x.Tasks).ThenInclude(x => x.Assignee)
+				.SingleOrDefault(x => x.Id == id);
 		}
 
 		public void Add(Project item) {

@@ -15,5 +15,12 @@
 
 		public User Assignee { get; set; }
 
+		public ProjectTask() { }
+
+		public ProjectTask(string description, Project project, User assignee = null) {
+			this.Description = description;
+			this.Project = project;
+			this.Assignee = assignee;
+		}
 	}
 }
