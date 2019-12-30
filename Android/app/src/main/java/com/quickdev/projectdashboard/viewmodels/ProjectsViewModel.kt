@@ -12,7 +12,7 @@ class ProjectsViewModel(private val projectRepository: ProjectRepository): ViewM
     val projects: LiveData<List<Project>>
         get() = _projects
 
-    val noContentVisible: LiveData<Int> = Transformations.map(_projects) { x -> if (x.isEmpty()) View.GONE else View.VISIBLE }
+    val noContentVisible: LiveData<Int> = Transformations.map(_projects) { x -> if (x.isEmpty()) View.VISIBLE else View.GONE }
 
     private val _isLoading = MutableLiveData<Boolean>(null)
     val isLoading: LiveData<Boolean>

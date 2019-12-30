@@ -21,11 +21,11 @@ data class Project(
     val ownerId: Int,
 
     @Embedded
-    val contact: ContactInfo,
-
+    val contact: ContactInfo
+) {
     @Ignore
-    var owner: Company? = null,
+    var owner: Company? = null
 
     @Ignore
     var team: Team? = null
-)
+}

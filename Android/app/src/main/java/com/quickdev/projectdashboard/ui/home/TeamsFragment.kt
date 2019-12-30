@@ -59,8 +59,8 @@ class TeamsFragment : Fragment() {
         })
 
         binding.viewModel?.isLoading?.observe(this, Observer { isLoading: Boolean? ->
-            if (isLoading != null && !isLoading)
-                binding.pullRefreshProjects.isRefreshing = false
+            if (isLoading != null)
+                binding.pullRefreshProjects.isRefreshing = isLoading
         })
     }
 

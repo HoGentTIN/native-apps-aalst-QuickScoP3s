@@ -19,7 +19,9 @@ class TeamRepository(database: AppDatabase) {
                 teamDao.clear()
                 teamDao.insertAll(*teams.toTypedArray())
             }
-            catch (e: Exception) { }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             val teams = teamDao.getAll()
             teams.forEach { team -> // Fill all objects
@@ -38,7 +40,9 @@ class TeamRepository(database: AppDatabase) {
                 val team = call.await()
                 teamDao.update(team)
             }
-            catch (e: Exception) { }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             val team = teamDao.getById(id)
             team.lead = userDao.getById(team.leadId)

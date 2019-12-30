@@ -2,6 +2,7 @@ package com.quickdev.projectdashboard.models.domain
 
 import androidx.room.Entity
 import androidx.room.Index
+import androidx.room.PrimaryKey
 
 @Entity(
 	tableName = "users",
@@ -10,6 +11,7 @@ import androidx.room.Index
 	]
 )
 data class User(
+	@PrimaryKey(autoGenerate = false)
     val id: Int = 0,
     var afbeelding: String?,
     var firstName: String,

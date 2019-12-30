@@ -116,7 +116,9 @@ namespace ProjectDashboard {
 			services.AddScoped<IBaseRepository<Team>, TeamsRepository>();
 			services.AddScoped<IBaseRepository<User>, UserRepository>();
 
-			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+			services.AddMvc()
+				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+				.AddJsonOptions(options => options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects);
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDataInitializer initializer) {

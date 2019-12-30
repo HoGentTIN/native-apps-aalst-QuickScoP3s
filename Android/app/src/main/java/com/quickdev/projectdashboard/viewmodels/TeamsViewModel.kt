@@ -12,7 +12,7 @@ class TeamsViewModel(private val teamRepository: TeamRepository): ViewModel() {
     val teams: LiveData<List<Team>>
         get() = _teams
 
-    val noContentVisible: LiveData<Int> = Transformations.map(_teams) { x -> if (x.isEmpty()) View.GONE else View.VISIBLE }
+    val noContentVisible: LiveData<Int> = Transformations.map(_teams) { x -> if (x.isEmpty()) View.VISIBLE else View.GONE }
 
     private val _isLoading = MutableLiveData<Boolean>(null)
     val isLoading: LiveData<Boolean>

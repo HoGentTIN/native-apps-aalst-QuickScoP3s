@@ -19,7 +19,9 @@ class ProjectRepository(database: AppDatabase) {
                 projectDao.clear()
                 projectDao.insertAll(*projects.map { x -> x.toModel() }.toTypedArray())
             }
-            catch (e: Exception) { }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             val projects = projectDao.getAll()
             projects.forEach { project -> // Fill all objects
@@ -37,7 +39,9 @@ class ProjectRepository(database: AppDatabase) {
                 val project = call.await()
                 projectDao.update(project.toModel())
             }
-            catch (e: Exception) { }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
 
             val project = projectDao.getById(id)
             project.team = teamDao.getById(project.teamId)
