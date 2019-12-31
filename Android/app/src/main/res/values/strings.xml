@@ -6,8 +6,8 @@
     <string name="nav_profile">Profile</string>
 
     <string name="action_login">Login</string>
-    <string name="action_forgotpassword">Forgot Password?</string>
     <string name="action_register">Register</string>
+    <string name="action_add_project">Create Project</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>
@@ -17,10 +17,16 @@
     <string name="hint_phone">Phone Number</string>
     <string name="hint_company">Company</string>
     <string name="hint_optional">optional</string>
+    <string name="hint_project_name">Project Name</string>
+    <string name="hint_project_team">Assigned Team</string>
+    <string name="hint_project_owner">Project Owner</string>
+    <string name="hint_project_contact">Project Contactperson</string>
 
     <string name="desc_img_logo">Project Dashboard logo</string>
     <string name="desc_remove_picture">Remove Picture</string>
     <string name="desc_no_content">No Content</string>
+
+    <string name="header_add_project">Create a project</string>
 
     <string name="label_tasks">%s Open Task(s)</string>
     <string name="label_members">%s Member(s)</string>

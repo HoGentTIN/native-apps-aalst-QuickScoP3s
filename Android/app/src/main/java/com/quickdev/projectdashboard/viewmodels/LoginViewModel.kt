@@ -7,6 +7,7 @@ import com.quickdev.projectdashboard.data.network.AuthService
 import com.quickdev.projectdashboard.models.DTO.identity.LoginDTO
 import kotlinx.coroutines.launch
 import java.io.InterruptedIOException
+import java.net.SocketTimeoutException
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -30,15 +31,16 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 userHelper.setUserCredentials(email.value!!, password.value!!)
                 _loginResponse.value = 200
             }
-            catch (e: retrofit2.HttpException) {
-                _loginResponse.value = e.code()
-            }
-            catch (e: InterruptedIOException) {
-                _loginResponse.value = 504
-            }
             catch (e: Exception) {
-                _loginResponse.value = 400
-                e.printStackTrace()
+                _loginResponse.value = when (e) {
+                    is retrofit2.HttpException -> e.code()
+                    is InterruptedIOException -> 504
+                    is SocketTimeoutException -> 504
+                    else -> {
+                        e.printStackTrace()
+                        400
+                    }
+                }
             }
 
             _loginResponse.value = null

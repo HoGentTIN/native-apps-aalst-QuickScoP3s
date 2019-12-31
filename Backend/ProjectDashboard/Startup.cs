@@ -112,7 +112,7 @@ namespace ProjectDashboard {
 
 			services.AddScoped<AppDataInitializer>();
 			services.AddScoped<IBaseRepository<Company>, CompanyRepository>();
-			services.AddScoped<IBaseRepository<Project>, ProjectRepository>();
+			services.AddScoped<IProjectRepository, ProjectRepository>();
 			services.AddScoped<IBaseRepository<Team>, TeamsRepository>();
 			services.AddScoped<IBaseRepository<User>, UserRepository>();
 

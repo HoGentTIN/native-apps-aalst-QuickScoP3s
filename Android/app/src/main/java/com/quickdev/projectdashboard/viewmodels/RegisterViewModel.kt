@@ -10,7 +10,8 @@ import com.quickdev.projectdashboard.data.network.AuthService
 import com.quickdev.projectdashboard.models.DTO.identity.RegisterDTO
 import com.quickdev.projectdashboard.models.domain.Company
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
+import java.io.InterruptedIOException
+import java.net.SocketTimeoutException
 
 class RegisterViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -56,11 +57,17 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                 userHelper.saveUser(result.authToken, result.picture)
                 userHelper.setUserCredentials(email.value!!, password.value!!)
                 _registerResponse.value = 200
-            } catch (e: HttpException) {
-                _registerResponse.value = e.code()
-            } catch (e: Exception) {
-                _registerResponse.value = 0
-                e.printStackTrace()
+            }
+            catch (e: Exception) {
+                _registerResponse.value = when (e) {
+                    is retrofit2.HttpException -> e.code()
+                    is InterruptedIOException -> 504
+                    is SocketTimeoutException -> 504
+                    else -> {
+                        e.printStackTrace()
+                        0
+                    }
+                }
             }
         }
     }

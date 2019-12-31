@@ -18,9 +18,9 @@ namespace ProjectDashboard.Controllers {
 	[Authorize]
 	public class ProjectsController : ControllerBase {
 
-		private readonly IBaseRepository<Project> _projectRepo;
+		private readonly IProjectRepository _projectRepo;
 
-		public ProjectsController(IBaseRepository<Project> projectRepo) {
+		public ProjectsController(IProjectRepository projectRepo) {
 			this._projectRepo = projectRepo;
 		}
 
@@ -45,6 +45,9 @@ namespace ProjectDashboard.Controllers {
 			model.UpdateFromModel(item);
 
 			item.LastEdit = DateTime.Now;
+
+			if (_projectRepo.NameExists(item.Name))
+				return Conflict("A project with this name already exists");
 
 			_projectRepo.Add(item);
 			_projectRepo.SaveChanges();

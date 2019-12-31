@@ -13,10 +13,6 @@ namespace ProjectDashboard.DTO {
 		[Required]
 		public ContactInfo ContactPerson { get; set; }
 
-		public int? TeamId { get; set; }
-
-		public int? OwnerId { get; set; }
-
 		public DateTime? LastEdit { get; set; }
 
 		public void UpdateFromModel(Project item) {

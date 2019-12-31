@@ -16,7 +16,7 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".ui.activity.StartupActivity">
+        <activity android:name=".ui.activity.StartupActivity" android:screenOrientation="sensorPortrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -25,6 +25,7 @@
 
         <activity android:name=".ui.activity.AuthActivity" />
         <activity android:name=".ui.activity.MainActivity" />
+        <activity android:name=".ui.activity.AddProjectActivity" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProjectDashboard.Extensions;
 using ProjectDashboard.Models.Domain;
 using ProjectDashboard.Models.Domain.Repositories;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace ProjectDashboard.Data.Repositories {
-	public class ProjectRepository : IBaseRepository<Project> {
+	public class ProjectRepository : IProjectRepository {
 
 		private readonly ApplicationDbContext _context;
 		private readonly DbSet<Project> _projects;
@@ -31,6 +32,10 @@ namespace ProjectDashboard.Data.Repositories {
 				.Include(x => x.Team).ThenInclude(x => x.Members).ThenInclude(x => x.Member)
 				.Include(x => x.Tasks).ThenInclude(x => x.Assignee)
 				.SingleOrDefault(x => x.Id == id);
+		}
+
+		public bool NameExists(string name) {
+			return _projects.Any(x => x.Name.EqualsIgnoreCase(name));
 		}
 
 		public void Add(Project item) {

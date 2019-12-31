@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.quickdev.projectdashboard.viewmodels.AddProjectViewModel" />
+    </data>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/title_addproject"
+                style="@style/TextAppearance.AppCompat.Headline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_medium"
+                android:text="@string/header_add_project"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_addproject_name"
+                style="@style/Widget.MaterialComponents.TextInputLayout.Regular"
+                android:hint="@string/hint_project_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_marginEnd="@dimen/padding_medium">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.projectName}"
+                    android:inputType="textCapWords"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_addproject_team"
+                style="@style/Widget.MaterialComponents.TextInputLayout.Regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_marginEnd="@dimen/padding_medium">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_project_team"
+                    android:inputType="textCapWords"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_addproject_owner"
+                style="@style/Widget.MaterialComponents.TextInputLayout.Regular"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_marginEnd="@dimen/padding_medium">
+
+                <AutoCompleteTextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_project_owner"
+                    android:inputType="textCapWords"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/title_addproject_contact"
+                style="@style/TextAppearance.AppCompat.Subhead"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_large"
+                android:layout_marginEnd="@dimen/padding_medium"
+                android:text="@string/hint_project_contact"/>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_addproject_contact_firstName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.Regular"
+                android:hint="@string/hint_first_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_marginEnd="@dimen/padding_medium">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.contactFirstName}"
+                    android:inputType="textCapWords"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_addproject_contact_lastName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.Regular"
+                android:hint="@string/hint_last_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_marginEnd="@dimen/padding_medium">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.contactLastName}"
+                    android:inputType="textCapWords"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_addproject_contact_email"
+                style="@style/Widget.MaterialComponents.TextInputLayout.Regular"
+                android:hint="@string/hint_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_marginEnd="@dimen/padding_medium">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.contactEmail}"
+                    android:inputType="textCapWords"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txt_addproject_contact_phone"
+                style="@style/Widget.MaterialComponents.TextInputLayout.Regular"
+                android:hint="@string/hint_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding_medium"
+                android:layout_marginTop="@dimen/padding_medium"
+                android:layout_marginEnd="@dimen/padding_medium">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@={viewModel.contactPhoneNr}"
+                    android:inputType="textCapWords"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_addproject"
+            style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:layout_marginEnd="48dp"
+            android:layout_gravity="bottom"
+            android:text="@string/action_add_project"
+            app:cornerRadius="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

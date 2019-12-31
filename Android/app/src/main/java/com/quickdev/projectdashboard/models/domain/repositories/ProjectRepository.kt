@@ -2,13 +2,17 @@ package com.quickdev.projectdashboard.models.domain.repositories
 
 import com.quickdev.projectdashboard.data.database.AppDatabase
 import com.quickdev.projectdashboard.data.network.ProjectService
+import com.quickdev.projectdashboard.models.DTO.ProjectDTO
 import com.quickdev.projectdashboard.models.domain.Project
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import java.io.InterruptedIOException
+import java.net.SocketTimeoutException
 
 class ProjectRepository(database: AppDatabase) {
 
     private val projectDao = database.projectDao
+    private val tasksDao = database.tasksDao
     private val teamDao = database.teamDao
 
     suspend fun getProjects(): List<Project> {
@@ -26,6 +30,7 @@ class ProjectRepository(database: AppDatabase) {
             val projects = projectDao.getAll()
             projects.forEach { project -> // Fill all objects
                 project.team = teamDao.getById(project.teamId)
+                project.tasks = project.taskIds.map { taskId -> tasksDao.getById(taskId) }
             }
 
             projects
@@ -45,8 +50,35 @@ class ProjectRepository(database: AppDatabase) {
 
             val project = projectDao.getById(id)
             project.team = teamDao.getById(project.teamId)
+            project.tasks = project.taskIds.map { taskId -> tasksDao.getById(taskId) }
 
             project
+        }
+    }
+
+    suspend fun postProject(project: ProjectDTO): Int {
+        return withContext(Dispatchers.IO) {
+            var response = 0
+
+            val call = ProjectService.HTTP.post(project)
+            try {
+            	val result = call.await()
+                projectDao.insert(result.toModel())
+                response = 200
+            }
+            catch (e: Exception) {
+                response = when (e) {
+                    is retrofit2.HttpException -> e.code()
+                    is InterruptedIOException -> 504
+                    is SocketTimeoutException -> 504
+                    else -> {
+                        e.printStackTrace()
+                        400
+                    }
+                }
+            }
+
+            response
         }
     }
 }
