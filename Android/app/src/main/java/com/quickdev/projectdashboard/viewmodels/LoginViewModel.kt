@@ -27,6 +27,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             try {
                 val result = loginCall.await()
                 userHelper.saveUser(result.authToken, result.picture)
+                userHelper.setUserCredentials(email.value!!, password.value!!)
                 _loginResponse.value = 200
             }
             catch (e: retrofit2.HttpException) {

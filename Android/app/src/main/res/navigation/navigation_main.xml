@@ -17,4 +17,10 @@
         android:name="com.quickdev.projectdashboard.ui.home.TeamsFragment"
         android:label="Teams"
         tools:layout="@layout/fragment_home_teams" />
+
+    <fragment
+        android:id="@+id/fragment_nav_profile"
+        android:name="com.quickdev.projectdashboard.ui.home.ProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_home_profile" />
 </navigation>

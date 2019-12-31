@@ -24,6 +24,8 @@
 
     <string name="label_tasks">%s Open Task(s)</string>
     <string name="label_members">%s Member(s)</string>
+    <string name="label_projects">Projects</string>
+    <string name="label_teams">Teams</string>
 
     <!-- VALIDATION ERROR -->
     <string name="error_empty">This field is required</string>

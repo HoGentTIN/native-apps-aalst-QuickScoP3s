@@ -35,12 +35,17 @@ namespace ProjectDashboard.Data {
 
 				User demoUser = new User("Demo", "User", "demo.user@realdolmen.be", "+32400000000", company5);
 				await _userManager.CreateAsync(demoUser, "DemoPassword");
+				User demoMember = new User("Demo", "Member", "demo.member@realdolmen.be", "+32400000000", company5);
+				await _userManager.CreateAsync(demoMember, "DemoPassword");
 
-				Team team = new Team("Team Project X", demoUser);
-				_context.Teams.AddRange(team);
+				Team team1 = new Team("Team Project X", demoUser);
+				Team team2 = new Team("Team Y", demoUser);
+				team2.Members.Add(new TeamMember { Team = team2, Member = demoMember });
+
+				_context.Teams.AddRange(team1, team2);
 				_context.SaveChanges();
 
-				Project project = new Project("Project X", team, company5, new ContactInfo("Antony", "Contact", "antonyc@realdolmen.be", "+32400000000"));
+				Project project = new Project("Project X", team1, company5, new ContactInfo("Antony", "Contact", "antonyc@realdolmen.be", "+32400000000"));
 				project.Tasks.Add(new ProjectTask("Create the project", project, demoUser));
 				project.Tasks.Add(new ProjectTask("Add initial views", project));
 				project.Tasks.Add(new ProjectTask("Add initial models", project));

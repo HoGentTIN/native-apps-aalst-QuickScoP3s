@@ -1,8 +1,11 @@
 package com.quickdev.projectdashboard.data
 
+import android.accounts.Account
+import android.accounts.AccountManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.security.keystore.UserNotAuthenticatedException
 import android.util.Base64
 import com.auth0.android.jwt.JWT
 import com.quickdev.projectdashboard.models.domain.User
@@ -13,6 +16,7 @@ import java.io.InputStream
 class UserHelper(context: Context) {
 
     private val dataHelper: LocalDataHelper = LocalDataHelper("Auth", context)
+    private val accountManager: AccountManager = context.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
 
     val authToken: String?
         get() = dataHelper.getString(LocalDataHelper.Key.STR_USERTOKEN)
@@ -46,6 +50,26 @@ class UserHelper(context: Context) {
         dataHelper.applyChanges()
     }
 
+    fun setUserCredentials(email: String, password: String) {
+        val account = Account(email, ACCOUNT_TYPE)
+        if (accountManager.addAccountExplicitly(account, password, null))
+            accountManager.notifyAccountAuthenticated(account)
+    }
+
+    fun getUserCredentials(): Pair<String, String> {
+        val account = try {
+            accountManager.getAccountsByType(ACCOUNT_TYPE).first()
+        }
+        catch (e: NoSuchElementException) {
+            throw UserNotAuthenticatedException("User not yet authenticated")
+        }
+
+        val email = account.name
+        val password = accountManager.getPassword(account)
+
+        return Pair(email, password)
+    }
+
     fun saveUser(authToken: String, afbeelding: String?) {
         dataHelper.put(LocalDataHelper.Key.STR_USERTOKEN, authToken)
 
@@ -55,6 +79,10 @@ class UserHelper(context: Context) {
             dataHelper.put(LocalDataHelper.Key.STR_USERPICTURE, "")
 
         dataHelper.applyChanges()
+    }
+
+    companion object {
+        private const val ACCOUNT_TYPE = "com.quickdev.projectdashboard.account"
     }
 }
 

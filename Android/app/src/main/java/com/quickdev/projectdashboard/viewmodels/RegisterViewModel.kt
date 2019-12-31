@@ -54,6 +54,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             try {
                 val result = registerCall.await()
                 userHelper.saveUser(result.authToken, result.picture)
+                userHelper.setUserCredentials(email.value!!, password.value!!)
                 _registerResponse.value = 200
             } catch (e: HttpException) {
                 _registerResponse.value = e.code()

@@ -3,17 +3,19 @@ package com.quickdev.projectdashboard.data.network
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import com.quickdev.projectdashboard.App
 import com.quickdev.projectdashboard.BuildConfig
+import com.quickdev.projectdashboard.data.UserHelper
+import com.quickdev.projectdashboard.models.DTO.identity.LoginDTO
 import com.quickdev.projectdashboard.util.converters.DateAdapter
 import com.quickdev.projectdashboard.util.converters.TimeAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import okhttp3.OkHttpClient
-import okhttp3.Request
+import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
+import java.util.concurrent.TimeUnit
 import javax.net.ssl.HostnameVerifier
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -51,6 +53,9 @@ object BaseService {
     /** Maak een OkHttpClient op basis van debugging status */
     private fun createHttpClient() : OkHttpClient {
         val okHttpClient = OkHttpClient.Builder()
+            .connectTimeout(5, TimeUnit.SECONDS)
+            .writeTimeout(10, TimeUnit.SECONDS)
+            .readTimeout(10, TimeUnit.SECONDS)
 
         // Source: https://www.vogella.com/tutorials/Retrofit/article.html
         okHttpClient.addInterceptor { chain ->
@@ -67,6 +72,8 @@ object BaseService {
             val newRequest: Request = builder.build()
             chain.proceed(newRequest)
         }
+
+        okHttpClient.authenticator(TokenAuthenticator(userHelper))
 
         if (BuildConfig.DEBUG) {
             // Log all communication while debugging
@@ -108,5 +115,33 @@ object BaseService {
         }
 
         return okHttpClient.build()
+    }
+}
+
+private class TokenAuthenticator(private val userHelper: UserHelper): Authenticator {
+
+    override fun authenticate(route: Route?, response: Response): Request? {
+        if (response.request.header("Authorization") != null) {
+            return null; // Give up, we've already failed to authenticate.
+        }
+
+        val creds = userHelper.getUserCredentials()
+        val authResponse = try {
+            AuthService.HTTP.loginRefresh(LoginDTO(creds.first, creds.second)).execute()
+        }
+        catch (e: java.lang.Exception) {
+            return null
+        }
+
+        if (authResponse.isSuccessful && authResponse.body() != null) {
+            val authDTO = authResponse.body()!!
+            userHelper.saveUser(authDTO.authToken, authDTO.picture)
+
+            return response.request.newBuilder()
+                .header("Authorization", "Bearer ${authDTO.authToken}")
+                .build()
+        }
+
+        return null
     }
 }
