@@ -18,9 +18,9 @@ interface TasksDao {
     @Query("SELECT * FROM tasks WHERE projectId = :projectId")
     fun getAllForProject(projectId: Int): List<ProjectTask>
 
-    @Query("SELECT * FROM projects WHERE id = :id")
+    @Query("SELECT * FROM tasks WHERE id = :id")
     fun getById(id: Int): ProjectTask
 
-    @Query("DELETE FROM projects")
+    @Query("DELETE FROM tasks")
     fun clear()
 }

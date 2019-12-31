@@ -39,7 +39,7 @@
             style="@style/TextAppearance.ListItem.Secondary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text='@{String.format(@string/label_tasks, project.tasks.length())}'
+            android:text='@{String.format(@string/label_tasks, project.taskIds.size())}'
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/txt_project_name"
             app:layout_constraintTop_toBottomOf="@id/txt_project_name"

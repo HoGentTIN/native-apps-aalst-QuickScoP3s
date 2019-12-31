@@ -58,7 +58,7 @@ class ProjectRepository(database: AppDatabase) {
 
     suspend fun postProject(project: ProjectDTO): Int {
         return withContext(Dispatchers.IO) {
-            var response = 0
+            var response: Int
 
             val call = ProjectService.HTTP.post(project)
             try {
