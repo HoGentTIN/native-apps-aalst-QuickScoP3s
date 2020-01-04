@@ -18,7 +18,7 @@ class StartupActivity : AppCompatActivity() {
     }
 
     private fun runStartup() {
-        if (!userHelper.isSignedIn()) {
+        if (!userHelper.isSignedIn) {
             startActivityForResult(Intent(this, AuthActivity::class.java), LOGININ_USER)
             return
         }

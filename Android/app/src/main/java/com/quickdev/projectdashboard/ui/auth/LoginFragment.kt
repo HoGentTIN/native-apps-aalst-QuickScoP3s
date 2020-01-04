@@ -1,6 +1,6 @@
 package com.quickdev.projectdashboard.ui.auth
 
-import android.content.Intent
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +13,6 @@ import com.afollestad.vvalidator.form
 import com.google.android.material.snackbar.Snackbar
 import com.quickdev.projectdashboard.R
 import com.quickdev.projectdashboard.databinding.FragmentAuthLoginBinding
-import com.quickdev.projectdashboard.ui.activity.MainActivity
 import com.quickdev.projectdashboard.viewmodels.LoginViewModel
 
 class LoginFragment : Fragment() {
@@ -71,12 +70,17 @@ class LoginFragment : Fragment() {
             if (httpCode != null) {
                 when (httpCode) {
                     200 -> {
-                        activity?.startActivity(Intent(activity, MainActivity::class.java))
+                        activity?.setResult(Activity.RESULT_OK)
                         activity?.finish()
                     }
                     401 -> Snackbar.make(
                         binding.btnLogin,
                         R.string.error_login_failed,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    504 -> Snackbar.make(
+                        binding.btnLogin,
+                        R.string.httperror_504,
                         Snackbar.LENGTH_SHORT
                     ).show()
                     else -> Snackbar.make(

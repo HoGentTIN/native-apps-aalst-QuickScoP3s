@@ -28,15 +28,17 @@ namespace ProjectDashboard.Controllers {
 
 		[HttpGet]
 		public IEnumerable<TeamDTO> GetAll() {
-			var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-			var teams = _teamRepo.GetAll().Where(x => x.LeadId == userId || x.Members.Any(y => y.MemberId == userId));
+			int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-			return teams.Select(x => new TeamDTO {
-				Id = x.Id,
-				Name = x.Name,
-				LeadId = x.LeadId,
-				MemberIds = x.Members.Select(y => y.MemberId)
-			});
+			return _teamRepo
+				.GetAll()
+				.Where(x => x.LeadId == userId || x.Members.Any(y => y.MemberId == userId))
+				.Select(x => new TeamDTO {
+					Id = x.Id,
+					Name = x.Name,
+					LeadId = x.LeadId,
+					MemberIds = x.Members.Select(y => y.MemberId)
+				});
 		}
 
 		[HttpGet("{id}")]
@@ -66,7 +68,7 @@ namespace ProjectDashboard.Controllers {
 			_teamRepo.Add(item);
 			_teamRepo.SaveChanges();
 
-			var dto = new TeamDTO {
+			TeamDTO dto = new TeamDTO {
 				Id = item.Id,
 				Name = item.Name,
 				LeadId = item.LeadId,
@@ -105,7 +107,7 @@ namespace ProjectDashboard.Controllers {
 			_teamRepo.Remove(item);
 			_teamRepo.SaveChanges();
 
-			var dto = new TeamDTO {
+			TeamDTO dto = new TeamDTO {
 				Id = item.Id,
 				Name = item.Name,
 				LeadId = item.LeadId,

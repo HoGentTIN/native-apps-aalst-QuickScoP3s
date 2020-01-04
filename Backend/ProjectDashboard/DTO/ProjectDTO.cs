@@ -11,12 +11,20 @@ namespace ProjectDashboard.DTO {
 		public string Name { get; set; }
 
 		[Required]
-		public ContactInfo ContactPerson { get; set; }
+		public int TeamId { get; set; }
+
+		[Required]
+		public int OwnerId { get; set; }
 
 		public DateTime? LastEdit { get; set; }
 
+		[Required]
+		public ContactInfo ContactPerson { get; set; }
+
 		public void UpdateFromModel(Project item) {
 			item.Name = this.Name;
+			item.TeamId = this.TeamId;
+			item.OwnerId = this.OwnerId;
 			item.ContactPerson = this.ContactPerson;
 		}
 	}

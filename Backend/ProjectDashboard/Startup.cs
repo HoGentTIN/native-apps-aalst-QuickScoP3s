@@ -111,14 +111,17 @@ namespace ProjectDashboard {
 			});
 
 			services.AddScoped<AppDataInitializer>();
-			services.AddScoped<IBaseRepository<Company>, CompanyRepository>();
+			services.AddScoped<ICompanyRepository, CompanyRepository>();
 			services.AddScoped<IProjectRepository, ProjectRepository>();
 			services.AddScoped<IBaseRepository<Team>, TeamsRepository>();
 			services.AddScoped<IBaseRepository<User>, UserRepository>();
 
 			services.AddMvc()
 				.SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-				.AddJsonOptions(options => options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects);
+				.AddJsonOptions(options => {
+					options.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.Objects;
+					options.SerializerSettings.DateFormatHandling = Newtonsoft.Json.DateFormatHandling.IsoDateFormat;
+				});
 		}
 
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, AppDataInitializer initializer) {

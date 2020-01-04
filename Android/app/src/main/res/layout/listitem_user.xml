@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="user"
+            type="com.quickdev.projectdashboard.models.domain.User" />
+
+        <variable
+            name="clickListener"
+            type="com.quickdev.projectdashboard.viewmodels.adapters.UserItemClickListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="@{() -> clickListener.onClick(user)}"
+        android:orientation="vertical"
+        android:padding="@dimen/padding_medium">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_user_icon"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:srcStr="@{user.picture}"
+            app:srcDefault="@{@drawable/img_profile}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/img_profile"/>
+
+        <TextView
+            android:id="@+id/txt_user_name"
+            style="@style/TextAppearance.ListItem.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_large"
+            android:text='@{String.format("%s %s", user.firstName, user.lastName)}'
+            app:layout_constraintBottom_toTopOf="@id/txt_user_email"
+            app:layout_constraintStart_toEndOf="@id/img_user_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Dwayne 'The Rock' Johnson" />
+
+        <TextView
+            android:id="@+id/txt_user_email"
+            style="@style/TextAppearance.ListItem.Secondary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{user.email}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txt_user_name"
+            app:layout_constraintTop_toBottomOf="@id/txt_user_name"
+            tools:text="dwayn.johnson@outlook.com" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

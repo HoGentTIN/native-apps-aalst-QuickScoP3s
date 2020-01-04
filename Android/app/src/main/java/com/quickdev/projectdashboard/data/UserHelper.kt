@@ -1,7 +1,5 @@
 package com.quickdev.projectdashboard.data
 
-import android.accounts.Account
-import android.accounts.AccountManager
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -16,17 +14,15 @@ import java.io.InputStream
 class UserHelper(context: Context) {
 
     private val dataHelper: LocalDataHelper = LocalDataHelper("Auth", context)
-    private val accountManager: AccountManager = context.getSystemService(Context.ACCOUNT_SERVICE) as AccountManager
 
     val authToken: String?
         get() = dataHelper.getString(LocalDataHelper.Key.STR_USERTOKEN)
 
-    fun isSignedIn(): Boolean {
-        return authToken != null
-    }
+    val isSignedIn: Boolean
+        get() = authToken != null
 
     fun getSignedInUser(): User? {
-        if (!isSignedIn())
+        if (!isSignedIn)
             return null
 
         val afbeelding = dataHelper.getString(LocalDataHelper.Key.STR_USERPICTURE)!!
@@ -47,25 +43,23 @@ class UserHelper(context: Context) {
         dataHelper.remove(LocalDataHelper.Key.BOOL_ISFIRSTSETUP)
         dataHelper.remove(LocalDataHelper.Key.STR_USERPICTURE)
         dataHelper.remove(LocalDataHelper.Key.STR_USERTOKEN)
+        dataHelper.remove(LocalDataHelper.Key.STR_USERNAME)
+        dataHelper.remove(LocalDataHelper.Key.STR_USERPASS)
         dataHelper.applyChanges()
     }
 
     fun setUserCredentials(email: String, password: String) {
-        val account = Account(email, ACCOUNT_TYPE)
-        if (accountManager.addAccountExplicitly(account, password, null))
-            accountManager.notifyAccountAuthenticated(account)
+        dataHelper.put(LocalDataHelper.Key.STR_USERNAME, email)
+        dataHelper.put(LocalDataHelper.Key.STR_USERPASS, password)
+        dataHelper.applyChanges()
     }
 
     fun getUserCredentials(): Pair<String, String> {
-        val account = try {
-            accountManager.getAccountsByType(ACCOUNT_TYPE).first()
-        }
-        catch (e: NoSuchElementException) {
-            throw UserNotAuthenticatedException("User not yet authenticated")
-        }
+        if (!isSignedIn)
+            throw UserNotAuthenticatedException()
 
-        val email = account.name
-        val password = accountManager.getPassword(account)
+        val email = dataHelper.getString(LocalDataHelper.Key.STR_USERNAME)!!
+        val password = dataHelper.getString(LocalDataHelper.Key.STR_USERPASS)!!
 
         return Pair(email, password)
     }
@@ -79,10 +73,6 @@ class UserHelper(context: Context) {
             dataHelper.put(LocalDataHelper.Key.STR_USERPICTURE, "")
 
         dataHelper.applyChanges()
-    }
-
-    companion object {
-        private const val ACCOUNT_TYPE = "com.quickdev.projectdashboard.account"
     }
 }
 

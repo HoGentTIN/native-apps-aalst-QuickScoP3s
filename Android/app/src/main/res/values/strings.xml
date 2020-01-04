@@ -42,9 +42,11 @@
 
     <string name="error_login_failed">Failed to login, email and password do not match</string>
     <string name="error_registration_failed">Failed to register, check your details</string>
+    <string name="error_projectname_exists">A project with this name already exists</string>
 
     <!-- GENERIC HTTP ERROR -->
     <string name="httperror_nonetwork">No network… Try connecting first</string>
+    <string name="httperror_invalid_data">Failed to send data, check your details</string>
     <string name="httperror_400">Something went wrong while sending data</string>
     <string name="httperror_401">You are not authorized to do this</string>
     <string name="httperror_404">The requested data was not found</string>

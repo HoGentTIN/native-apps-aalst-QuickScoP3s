@@ -1,9 +1,8 @@
 package com.quickdev.projectdashboard.models.domain
 
 import androidx.room.*
-import com.quickdev.projectdashboard.util.converters.DateConverter
-import com.quickdev.projectdashboard.util.converters.IntListConverter
-import java.time.LocalDate
+import com.quickdev.projectdashboard.util.converters.DateTimeConverter
+import java.time.LocalDateTime
 
 @Entity(
     tableName = "projects",
@@ -11,14 +10,13 @@ import java.time.LocalDate
         Index(value = ["id"], unique = true)
     ]
 )
-@TypeConverters(value = [DateConverter::class, IntListConverter::class])
+@TypeConverters(value = [DateTimeConverter::class])
 data class Project(
     @PrimaryKey(autoGenerate = false)
     val id: Int = 0,
     val name: String,
-    val lastEdit: LocalDate,
+    val lastEdit: LocalDateTime,
     val teamId: Int,
-    val taskIds: List<Int>,
     val ownerId: Int,
 
     @Embedded

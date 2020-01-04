@@ -1,5 +1,7 @@
 package com.quickdev.projectdashboard.ui.home
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,12 +12,16 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.quickdev.projectdashboard.data.database.getDatabase
 import com.quickdev.projectdashboard.databinding.FragmentHomeProjectsBinding
-import com.quickdev.projectdashboard.models.domain.repositories.ProjectRepository
+import com.quickdev.projectdashboard.ui.activity.AddProjectActivity
 import com.quickdev.projectdashboard.viewmodels.ProjectsViewModel
 import com.quickdev.projectdashboard.viewmodels.adapters.ProjectAdapter
 import com.quickdev.projectdashboard.viewmodels.adapters.ProjectItemClickListener
 
 class ProjectsFragment : Fragment() {
+
+    companion object {
+        private const val ADD_PROJECT = 1
+    }
 
     private lateinit var binding: FragmentHomeProjectsBinding
     private lateinit var projectsAdapter: ProjectAdapter
@@ -26,10 +32,9 @@ class ProjectsFragment : Fragment() {
         }
 
         val database = getDatabase(activity)
-        val repo = ProjectRepository(database)
 
         ViewModelProviders
-            .of(this, ProjectsViewModel.Factory(repo))
+            .of(this, ProjectsViewModel.Factory(database))
             .get(ProjectsViewModel::class.java)
     }
 
@@ -65,6 +70,10 @@ class ProjectsFragment : Fragment() {
     }
 
     private fun startListeners() {
+        binding.btnProjectsAdd.setOnClickListener {
+            startActivityForResult(Intent(this.activity, AddProjectActivity::class.java), ADD_PROJECT)
+        }
+
         binding.pullRefreshProjects.setOnRefreshListener {
             binding.viewModel?.refreshData()
         }
@@ -74,5 +83,12 @@ class ProjectsFragment : Fragment() {
         super.onDestroyView()
 
         binding.btnProjectsAdd.hide()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ADD_PROJECT && resultCode == Activity.RESULT_OK)
+            binding.viewModel?.refreshData()
     }
 }

@@ -3,6 +3,7 @@ package com.quickdev.projectdashboard.util.converters
 import org.junit.Assert.*
 import org.junit.Test
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.Month
 import java.time.format.DateTimeParseException
 
@@ -59,10 +60,28 @@ class DateAdapterTest {
 
 	@Test
 	fun fromString_validString_returnsDate() {
-		val input = "2019-12-09T00:00:00"
+		val input = "2019-12-09T10:38:00"
 		val result = dateAdapter.fromString(input)
 
-		val localDate = LocalDate.of(2019, Month.DECEMBER, 9)
+		val localDate = LocalDateTime.of(2019, Month.DECEMBER, 9, 10, 38, 0)
+		assertEquals(result, localDate)
+	}
+
+	@Test
+	fun fromString_validNanoString_returnsDate() {
+		val input = "2020-01-04T20:04:23.492206"
+		val result = dateAdapter.fromString(input)
+
+		val localDate = LocalDateTime.of(2020, Month.JANUARY, 4, 20, 4, 23)
+		assertEquals(result, localDate)
+	}
+
+	@Test
+	fun fromString_validFullString_returnsDate() {
+		val input = "2020-01-04T20:21:40.6655375+00:00"
+		val result = dateAdapter.fromString(input)
+
+		val localDate = LocalDateTime.of(2020, Month.JANUARY, 4, 20, 21, 40)
 		assertEquals(result, localDate)
 	}
 
@@ -74,10 +93,10 @@ class DateAdapterTest {
 
 	@Test
 	fun fromDate_validDate_returnsString() {
-		val input = LocalDate.of(2019, Month.DECEMBER, 9)
+		val input = LocalDateTime.of(2019, Month.DECEMBER, 9, 10, 38, 0)
 		val result = dateAdapter.toString(input)
 
-		assertEquals(result, "2019-12-09T00:00:00")
+		assertEquals(result, "2019-12-09T10:38:00")
 	}
 
 

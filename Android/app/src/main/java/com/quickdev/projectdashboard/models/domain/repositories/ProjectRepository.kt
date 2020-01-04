@@ -30,7 +30,6 @@ class ProjectRepository(database: AppDatabase) {
             val projects = projectDao.getAll()
             projects.forEach { project -> // Fill all objects
                 project.team = teamDao.getById(project.teamId)
-                project.tasks = project.taskIds.map { taskId -> tasksDao.getById(taskId) }
             }
 
             projects
@@ -50,7 +49,6 @@ class ProjectRepository(database: AppDatabase) {
 
             val project = projectDao.getById(id)
             project.team = teamDao.getById(project.teamId)
-            project.tasks = project.taskIds.map { taskId -> tasksDao.getById(taskId) }
 
             project
         }

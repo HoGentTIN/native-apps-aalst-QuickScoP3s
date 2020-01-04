@@ -24,4 +24,9 @@ data class Team(
 	/** Variable to be filled in by the repository, not saved in the Room */
 	@Ignore
 	var members: List<User> = listOf()
+
+	// Needed for the Autocomplete View to work 😒
+	override fun toString(): String {
+		return this.name
+	}
 }

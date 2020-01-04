@@ -3,7 +3,10 @@ package com.quickdev.projectdashboard.util.converters
 import androidx.room.TypeConverter
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
-import java.time.*
+import java.time.Instant
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 
 class DateConverter {
@@ -21,16 +24,38 @@ class DateConverter {
     }
 }
 
+class DateTimeConverter {
+
+    private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
+
+    @TypeConverter
+    fun toDate(dateString: String?): LocalDateTime? {
+        return if (dateString == null) null else LocalDateTime.parse(dateString, formatter)
+    }
+
+    @TypeConverter
+    fun fromDate(date: LocalDateTime?): String? {
+        return if (date == null) null else formatter.format(date)
+    }
+}
+
 class DateAdapter {
+    private val regex = Regex("\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}")
     private val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss")
 
     @FromJson
-    fun fromString(dateString: String): LocalDate =
-        LocalDate.parse(dateString, formatter)
+    fun fromString(dateString: String): LocalDateTime {
+        var toBeParsed = dateString
+
+        val result = regex.find(dateString) // Ignore all that comes after the seconds
+        if (result != null)
+            toBeParsed = result.value
+
+        return LocalDateTime.parse(toBeParsed, formatter)
+    }
 
     @ToJson
-    fun toString(date: LocalDate): String =
-        formatter.format(LocalDateTime.of(date, LocalTime.MIDNIGHT)) // LocalDate ondersteunt geen uurformat, dus dit is een workaround via LocalDateTime
+    fun toString(date: LocalDateTime): String = formatter.format(date)
 }
 
 object DateFormatter {

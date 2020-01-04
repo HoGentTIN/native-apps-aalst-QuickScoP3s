@@ -3,7 +3,6 @@ package com.quickdev.projectdashboard.ui.auth
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -86,6 +85,11 @@ class RegisterFragment : Fragment() {
                     400 -> Snackbar.make(
                         binding.root,
                         R.string.error_registration_failed,
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    504 -> Snackbar.make(
+                        binding.btnRegister,
+                        R.string.httperror_504,
                         Snackbar.LENGTH_SHORT
                     ).show()
                     else -> Snackbar.make(

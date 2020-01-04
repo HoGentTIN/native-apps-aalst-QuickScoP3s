@@ -64,7 +64,7 @@ object BaseService {
                 .newBuilder()
                 .header("content-type", "application/json")
 
-            if (userHelper.isSignedIn()) {
+            if (userHelper.isSignedIn) {
                 val authToken = userHelper.authToken
                 builder.addHeader("Authorization", "Bearer $authToken")
             }
@@ -121,9 +121,11 @@ object BaseService {
 private class TokenAuthenticator(private val userHelper: UserHelper): Authenticator {
 
     override fun authenticate(route: Route?, response: Response): Request? {
-        if (response.request.header("Authorization") != null) {
+        if (response.request.header("Authorization") != null)
             return null; // Give up, we've already failed to authenticate.
-        }
+
+        if (!userHelper.isSignedIn)
+            return null
 
         val creds = userHelper.getUserCredentials()
         val authResponse = try {

@@ -44,8 +44,8 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_addproject_team"
-                style="@style/Widget.MaterialComponents.TextInputLayout.Regular"
+                android:id="@+id/layout_addproject_team"
+                style="@style/Widget.MaterialComponents.TextInputLayout.Regular.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_medium"
@@ -53,27 +53,11 @@
                 android:layout_marginEnd="@dimen/padding_medium">
 
                 <AutoCompleteTextView
+                    android:id="@+id/select_addproject_team"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_project_team"
-                    android:inputType="textCapWords"/>
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_addproject_owner"
-                style="@style/Widget.MaterialComponents.TextInputLayout.Regular"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_medium"
-                android:layout_marginTop="@dimen/padding_medium"
-                android:layout_marginEnd="@dimen/padding_medium">
-
-                <AutoCompleteTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/hint_project_owner"
-                    android:inputType="textCapWords"/>
+                    android:editable="false"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -83,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/padding_medium"
-                android:layout_marginTop="@dimen/padding_large"
+                android:layout_marginTop="@dimen/padding_xlarge"
                 android:layout_marginEnd="@dimen/padding_medium"
                 android:text="@string/hint_project_contact"/>
 
@@ -137,7 +121,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@={viewModel.contactEmail}"
-                    android:inputType="textCapWords"/>
+                    android:inputType="textEmailAddress"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,7 +139,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@={viewModel.contactPhoneNr}"
-                    android:inputType="textCapWords"/>
+                    android:inputType="phone"/>
 
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>

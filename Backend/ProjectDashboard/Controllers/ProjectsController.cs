@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using ProjectDashboard.DTO;
 using ProjectDashboard.Models.Domain;
 using ProjectDashboard.Models.Domain.Repositories;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,18 +26,36 @@ namespace ProjectDashboard.Controllers {
 		}
 
 		[HttpGet]
-		public IEnumerable<Project> GetAll() {
-			var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
-			return _projectRepo.GetAll().Where(x => x.Team.LeadId == userId || x.Team.Members.Any(y => y.MemberId == userId));
+		public IEnumerable<ProjectDTO> GetAll() {
+			int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+			return _projectRepo
+				.GetAll()
+				.Where(x => x.Team.LeadId == userId || x.Team.Members.Any(y => y.MemberId == userId))
+				.Select(x => new ProjectDTO {
+					Id = x.Id,
+					Name = x.Name,
+					TeamId = x.TeamId,
+					OwnerId = x.OwnerId,
+					LastEdit = x.LastEdit,
+					ContactPerson = x.ContactPerson
+				});
 		}
 
 		[HttpGet("{id}")]
-		public ActionResult<Project> GetById(int id) {
+		public ActionResult<ProjectDTO> GetById(int id) {
 			Project item = _projectRepo.GetById(id);
 			if (item == null)
 				return NotFound();
 
-			return item;
+			return new ProjectDTO {
+				Id = item.Id,
+				Name = item.Name,
+				TeamId = item.TeamId,
+				OwnerId = item.OwnerId,
+				LastEdit = item.LastEdit,
+				ContactPerson = item.ContactPerson
+			};
 		}
 
 		[HttpPost]
@@ -46,13 +65,22 @@ namespace ProjectDashboard.Controllers {
 
 			item.LastEdit = DateTime.Now;
 
-			if (_projectRepo.NameExists(item.Name))
-				return Conflict("A project with this name already exists");
+			if (_projectRepo.NameExists(item.OwnerId, item.Name))
+				return Conflict("A project with this name already exists for that owner");
 
 			_projectRepo.Add(item);
 			_projectRepo.SaveChanges();
 
-			return CreatedAtAction(nameof(GetAll), item);
+			ProjectDTO dto = new ProjectDTO {
+				Id = item.Id,
+				Name = item.Name,
+				TeamId = item.TeamId,
+				OwnerId = item.OwnerId,
+				LastEdit = item.LastEdit,
+				ContactPerson = item.ContactPerson
+			};
+
+			return CreatedAtAction(nameof(GetAll), dto);
 		}
 
 		[HttpPut("{id}")]
@@ -79,7 +107,16 @@ namespace ProjectDashboard.Controllers {
 			_projectRepo.Remove(item);
 			_projectRepo.SaveChanges();
 
-			return Ok(item);
+			ProjectDTO dto = new ProjectDTO {
+				Id = item.Id,
+				Name = item.Name,
+				TeamId = item.TeamId,
+				OwnerId = item.OwnerId,
+				LastEdit = item.LastEdit,
+				ContactPerson = item.ContactPerson
+			};
+
+			return Ok(dto);
 		}
 	}
 }

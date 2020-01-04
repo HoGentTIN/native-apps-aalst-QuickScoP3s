@@ -6,12 +6,14 @@ import android.content.SharedPreferences
 
 class LocalDataHelper(dataName: String, context: Context) {
 
-    val localData: SharedPreferences = context.getSharedPreferences(dataName, MODE_PRIVATE)
+    private val localData: SharedPreferences = context.getSharedPreferences(dataName, MODE_PRIVATE)
     private val dataEditor: SharedPreferences.Editor = localData.edit()
 
     enum class Key {
         STR_USERPICTURE,
         STR_USERTOKEN,
+        STR_USERNAME,
+        STR_USERPASS,
         BOOL_ISFIRSTSETUP
     }
 

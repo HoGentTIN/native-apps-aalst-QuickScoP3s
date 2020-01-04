@@ -34,8 +34,8 @@ namespace ProjectDashboard.Data.Repositories {
 				.SingleOrDefault(x => x.Id == id);
 		}
 
-		public bool NameExists(string name) {
-			return _projects.Any(x => x.Name.EqualsIgnoreCase(name));
+		public bool NameExists(int ownerId, string name) {
+			return _projects.Where(x => x.OwnerId == ownerId).Any(x => x.Name.EqualsIgnoreCase(name));
 		}
 
 		public void Add(Project item) {

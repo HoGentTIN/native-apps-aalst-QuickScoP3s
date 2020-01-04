@@ -16,9 +16,9 @@ namespace ProjectDashboard.Controllers {
 	[Authorize]
 	public class CompaniesController : ControllerBase {
 
-		private readonly IBaseRepository<Company> _companyRepo;
+		private readonly ICompanyRepository _companyRepo;
 
-		public CompaniesController(IBaseRepository<Company> companyRepo) {
+		public CompaniesController(ICompanyRepository companyRepo) {
 			this._companyRepo = companyRepo;
 		}
 
@@ -34,6 +34,11 @@ namespace ProjectDashboard.Controllers {
 				return NotFound();
 
 			return item;
+		}
+
+		[HttpGet("{id}/users")]
+		public IEnumerable<User> GetUsersFromCompany(int id) {
+			return _companyRepo.GetUsersFromCompany(id);
 		}
 
 		[HttpPost]

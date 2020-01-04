@@ -15,6 +15,10 @@ class ProfileViewModel(application: Application): AndroidViewModel(application) 
 	private val teamRepository = TeamRepository(database)
 	private val userHelper = UserHelper(application)
 
+	private val _picture = MutableLiveData<String>()
+	val picture: LiveData<String>
+		get() = _picture
+
 	private val _firstName = MutableLiveData<String>()
 	val firstName: LiveData<String>
 		get() = _firstName
@@ -41,6 +45,7 @@ class ProfileViewModel(application: Application): AndroidViewModel(application) 
 			_teamsCount.value = teamRepository.getTeams().size
 
 			val user = userHelper.getSignedInUser()
+			_picture.value = user?.picture
 			_firstName.value = user?.firstName
 			_lastName.value = user?.lastName
 			_email.value = user?.email

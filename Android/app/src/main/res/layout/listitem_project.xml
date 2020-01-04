@@ -29,31 +29,20 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:text="@{project.name}"
-            app:layout_constraintBottom_toTopOf="@id/txt_team_memberCount"
+            app:layout_constraintBottom_toTopOf="@id/txt_project_team"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Solo Project" />
 
         <TextView
-            android:id="@+id/txt_team_memberCount"
+            android:id="@+id/txt_project_team"
             style="@style/TextAppearance.ListItem.Secondary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text='@{String.format(@string/label_tasks, project.taskIds.size())}'
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/txt_project_name"
-            app:layout_constraintTop_toBottomOf="@id/txt_project_name"
-            tools:text="1 Open Task(s)"/>
-
-        <TextView
-            android:id="@+id/txt_reservatie_fietsId"
-            style="@style/TextAppearance.ListItem.Meta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{project.team.name}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txt_project_name"
+            app:layout_constraintTop_toBottomOf="@id/txt_project_name"
             tools:text="Team X"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

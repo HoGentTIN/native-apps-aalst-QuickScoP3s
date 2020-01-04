@@ -2,6 +2,7 @@ package com.quickdev.projectdashboard.data.network
 
 import com.quickdev.projectdashboard.models.DTO.CompanyDTO
 import com.quickdev.projectdashboard.models.domain.Company
+import com.quickdev.projectdashboard.models.domain.User
 import kotlinx.coroutines.Deferred
 import retrofit2.http.*
 
@@ -12,6 +13,9 @@ interface CompanyApiService {
 
     @GET("$BASE_URL/{id}")
     fun getById(@Path("id") id: Int): Deferred<Company>
+
+    @GET("$BASE_URL/{id}/users")
+    fun getUsersFromCompany(@Path("id") id: Int): Deferred<List<User>>
 
     @POST(BASE_URL)
     fun post(@Body dto: CompanyDTO): Deferred<Company>

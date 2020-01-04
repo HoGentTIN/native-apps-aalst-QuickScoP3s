@@ -1,8 +1,11 @@
 package com.quickdev.projectdashboard.models.domain.repositories
 
+import com.quickdev.projectdashboard.App
 import com.quickdev.projectdashboard.data.database.AppDatabase
+import com.quickdev.projectdashboard.data.network.CompanyService
 import com.quickdev.projectdashboard.data.network.TeamService
 import com.quickdev.projectdashboard.models.domain.Team
+import com.quickdev.projectdashboard.models.domain.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -49,6 +52,28 @@ class TeamRepository(database: AppDatabase) {
             team.members = team.memberIds.map { memberId -> userDao.getById(memberId) }
 
             team
+        }
+    }
+
+    suspend fun getUsersFromCompany(): List<User> {
+        val userHelper = App.getUserHelper()
+        if (!userHelper.isSignedIn)
+            return listOf()
+
+        val user = userHelper.getSignedInUser()!!
+        val companyId = user.companyId!!
+
+        return withContext(Dispatchers.IO) {
+            var list = listOf<User>()
+            val call = CompanyService.HTTP.getUsersFromCompany(companyId)
+            try {
+                list = call.await()
+            }
+            catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            list
         }
     }
 }
