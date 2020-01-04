@@ -11,12 +11,12 @@ class TimeConverter {
     private val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
 
     @TypeConverter
-    fun toDate(timeString: String?): LocalTime? {
+    fun toTime(timeString: String?): LocalTime? {
         return if (timeString == null) null else LocalTime.parse(timeString, formatter)
     }
 
     @TypeConverter
-    fun fromDate(time: LocalTime?): String? {
+    fun fromTime(time: LocalTime?): String? {
         return if (time == null) null else formatter.format(time)
     }
 }
@@ -25,11 +25,11 @@ class TimeAdapter {
     private val formatter = DateTimeFormatter.ofPattern("HH:mm:ss")
 
     @FromJson
-    fun stringToDate(timeString: String): LocalTime =
+    fun fromString(timeString: String): LocalTime =
         LocalTime.parse(timeString, formatter)
 
     @ToJson
-    fun dateToString(time: LocalTime): String =
+    fun toString(time: LocalTime): String =
         formatter.format(time)
 }
 
