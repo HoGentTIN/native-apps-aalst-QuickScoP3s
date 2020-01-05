@@ -29,10 +29,12 @@ class TaskAdapter(clickListener: (Int) -> Unit): ListAdapter<ProjectTask, Recycl
         }
     }
 
+    fun getItemAt(position: Int) = getItem(position)
+
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder -> {
-                val item = getItem(position) as ProjectTask
+                val item = getItem(position)
                 holder.bind(clickListener, item)
             }
         }
@@ -50,6 +52,8 @@ class TaskAdapter(clickListener: (Int) -> Unit): ListAdapter<ProjectTask, Recycl
     }
 
     class ViewHolder private constructor(private val binding: ListitemTaskBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        val viewForeground = binding.viewTaskForeground!!
 
         fun bind(clickListener: ClickListener, item: ProjectTask) {
             binding.task = item

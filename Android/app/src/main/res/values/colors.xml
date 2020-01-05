@@ -11,4 +11,6 @@
     <color name="primaryTextColor">#000</color>
     <color name="secondaryTextColor">#fff</color>
     <color name="dimTextColor">#646464</color>
+
+    <color name="finishedColor">#33cc33</color>
 </resources>

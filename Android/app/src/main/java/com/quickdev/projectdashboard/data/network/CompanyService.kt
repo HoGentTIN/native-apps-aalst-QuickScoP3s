@@ -26,7 +26,7 @@ interface CompanyApiService {
 
 
     @DELETE("$BASE_URL/{id}")
-    fun put(@Path("id") id: Int): Deferred<Company>
+    fun delete(@Path("id") id: Int): Deferred<Company>
 
     companion object {
         private const val BASE_URL: String = "companies"

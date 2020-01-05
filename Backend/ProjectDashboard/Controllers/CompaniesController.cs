@@ -61,8 +61,6 @@ namespace ProjectDashboard.Controllers {
 				return NotFound();
 
 			model.UpdateFromModel(item);
-
-			_companyRepo.Add(item);
 			_companyRepo.SaveChanges();
 
 			return NoContent();

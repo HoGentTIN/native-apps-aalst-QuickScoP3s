@@ -83,8 +83,6 @@ namespace ProjectDashboard.Controllers {
 				return NotFound();
 
 			model.UpdateFromModel(item);
-
-			_taskRepo.Add(item);
 			_taskRepo.SaveChanges();
 
 			return NoContent();

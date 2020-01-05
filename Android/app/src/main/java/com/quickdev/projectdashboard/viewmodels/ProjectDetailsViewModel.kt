@@ -30,6 +30,10 @@ class ProjectDetailsViewModel(private val projectId: Int, database: AppDatabase)
 	val isLoading: LiveData<Boolean>
 		get() = _isLoading
 
+	private val _taskFinishedResponse = MutableLiveData<Int>()
+	val taskFinishedResponse: LiveData<Int>
+		get() = _taskFinishedResponse
+
 	init {
 		refreshData()
 	}
@@ -51,6 +55,17 @@ class ProjectDetailsViewModel(private val projectId: Int, database: AppDatabase)
 
 			_isLoading.value = false
 			_isLoading.value = null
+		}
+	}
+
+	fun setFinished(taskId: Int) {
+		viewModelScope.launch {
+			_taskFinishedResponse.value = null
+			val response = tasksRepository.setTaskFinished(taskId)
+			if (response == 200)
+				_tasks.value = tasksRepository.getAllForProject(projectId, isFinshedTabSelected, true)
+
+			_taskFinishedResponse.value = response
 		}
 	}
 

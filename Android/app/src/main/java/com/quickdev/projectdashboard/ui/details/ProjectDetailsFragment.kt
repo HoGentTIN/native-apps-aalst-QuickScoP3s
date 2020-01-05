@@ -1,5 +1,6 @@
 package com.quickdev.projectdashboard.ui.details
 
+import android.graphics.Canvas
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.transition.TransitionInflater
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayout
+import com.quickdev.projectdashboard.R
 import com.quickdev.projectdashboard.data.database.getDatabase
 import com.quickdev.projectdashboard.databinding.FragmentDetailsProjectBinding
 import com.quickdev.projectdashboard.viewmodels.ProjectDetailsViewModel
@@ -92,6 +95,24 @@ class ProjectDetailsFragment: Fragment() {
 			if (isLoading != null)
 				binding.pullRefreshProjectdetails.isRefreshing = isLoading
 		})
+
+		binding.viewModel?.taskFinishedResponse?.observe(this, Observer { httpCode: Int? ->
+			if (httpCode != null) {
+				when (httpCode) {
+					200 -> { }
+					504 -> Snackbar.make(
+						binding.listProjectDetailsTasks,
+						R.string.httperror_504,
+						Snackbar.LENGTH_SHORT
+					).show()
+					else -> Snackbar.make(
+						binding.listProjectDetailsTasks,
+						R.string.httperror_400,
+						Snackbar.LENGTH_SHORT
+					).show()
+				}
+			}
+		})
 	}
 
 	override fun onDestroyView() {
@@ -118,11 +139,30 @@ class ProjectDetailsFragment: Fragment() {
 		override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean = false
 
 		override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+			val task = tasksAdapter.getItemAt(viewHolder.adapterPosition)
+			binding.viewModel?.setFinished(task.id)
 
+			// Reset swipe
+			tasksAdapter.notifyItemChanged(viewHolder.adapterPosition)
 		}
 
 		override fun isItemViewSwipeEnabled(): Boolean {
 			return !viewModel.isFinshedTabSelected // If we're on the 'open tasks' page, enable swipe
+		}
+
+		override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+			val foregroundView = (viewHolder as TaskAdapter.ViewHolder).viewForeground
+			getDefaultUIUtil().clearView(foregroundView)
+		}
+
+		override fun onChildDrawOver(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder?, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+			val foregroundView = (viewHolder as TaskAdapter.ViewHolder).viewForeground
+			getDefaultUIUtil().onDrawOver(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
+		}
+
+		override fun onChildDraw(c: Canvas, recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, dX: Float, dY: Float, actionState: Int, isCurrentlyActive: Boolean) {
+			val foregroundView = (viewHolder as TaskAdapter.ViewHolder).viewForeground
+			getDefaultUIUtil().onDraw(c, recyclerView, foregroundView, dX, dY, actionState, isCurrentlyActive);
 		}
 	}
 }

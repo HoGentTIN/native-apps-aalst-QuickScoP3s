@@ -11,8 +11,10 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.*
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import java.lang.reflect.Type
 import java.security.SecureRandom
 import java.security.cert.X509Certificate
 import java.util.concurrent.TimeUnit
@@ -44,6 +46,7 @@ object BaseService {
 		.build()
 
 	val RETROFIT: Retrofit = Retrofit.Builder()
+		.addConverterFactory(UnitConverterFactory)
 		.addConverterFactory(MoshiConverterFactory.create(moshi))
 		.addCallAdapterFactory(CoroutineCallAdapterFactory())
 		.baseUrl(BASE_URL)
@@ -144,5 +147,17 @@ private class TokenAuthenticator(private val userHelper: UserHelper) : Authentic
 		return response.request.newBuilder()
 			.header("Authorization", "Bearer ${userHelper.authToken!!}")
 			.build()
+	}
+}
+
+object UnitConverterFactory : Converter.Factory() {
+	override fun responseBodyConverter(type: Type, annotations: Array<out Annotation>, retrofit: Retrofit): Converter<ResponseBody, *>? {
+		return if (type == Unit::class.java) UnitConverter else null
+	}
+
+	private object UnitConverter : Converter<ResponseBody, Unit> {
+		override fun convert(value: ResponseBody) {
+			value.close()
+		}
 	}
 }

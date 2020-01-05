@@ -106,7 +106,6 @@ namespace ProjectDashboard.Controllers {
 			model.UpdateFromModel(item);
 			item.LastEdit = DateTime.Now;
 
-			_projectRepo.Add(item);
 			_projectRepo.SaveChanges();
 
 			return NoContent();

@@ -11,6 +11,7 @@ namespace ProjectDashboard.Data {
 		public DbSet<Company> Companies { get; set; }
 		public DbSet<Project> Projects { get; set; }
 		public DbSet<Team> Teams { get; set; }
+		public DbSet<ProjectTask> Tasks { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 

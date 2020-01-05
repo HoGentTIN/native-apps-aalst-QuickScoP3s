@@ -16,7 +16,7 @@ namespace ProjectDashboard.DTO {
 		[Required]
 		public int OwnerId { get; set; }
 
-		public DateTime? LastEdit { get; set; }
+		public DateTimeOffset? LastEdit { get; set; }
 
 		[Required]
 		public ContactInfo ContactPerson { get; set; }

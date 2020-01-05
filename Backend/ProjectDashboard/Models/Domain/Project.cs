@@ -13,8 +13,7 @@ namespace ProjectDashboard.Models.Domain {
 
 		public ICollection<ProjectTask> Tasks { get; set; } = new List<ProjectTask>();
 
-		public DateTime LastEdit { get; set; }
-
+		public DateTimeOffset LastEdit { get; set; } = DateTimeOffset.Now;
 
 		public int OwnerId { get; set; }
 

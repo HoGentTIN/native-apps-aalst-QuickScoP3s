@@ -25,7 +25,7 @@ interface ProjectApiService {
 
 
     @DELETE("$BASE_URL/{id}")
-    fun put(@Path("id") id: Int): Deferred<ProjectDTO>
+    fun delete(@Path("id") id: Int): Deferred<ProjectDTO>
 
     companion object {
         private const val BASE_URL: String = "projects"

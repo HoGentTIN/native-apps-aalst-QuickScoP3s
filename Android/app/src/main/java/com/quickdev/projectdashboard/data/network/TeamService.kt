@@ -21,7 +21,7 @@ interface TeamApiService {
 
 
     @DELETE("$BASE_URL/{id}")
-    fun put(@Path("id") id: Int): Deferred<Team>
+    fun delete(@Path("id") id: Int): Deferred<Team>
 
     companion object {
         private const val BASE_URL: String = "teams"

@@ -92,7 +92,6 @@ namespace ProjectDashboard.Controllers {
 				item.Members.Add(new TeamMember { Team = item, Member = member });
 			}
 
-			_teamRepo.Add(item);
 			_teamRepo.SaveChanges();
 
 			return NoContent();
