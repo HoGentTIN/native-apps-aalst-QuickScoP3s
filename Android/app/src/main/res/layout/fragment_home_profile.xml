@@ -9,121 +9,163 @@
             type="com.quickdev.projectdashboard.viewmodels.ProfileViewModel" />
     </data>
 
-    <LinearLayout
-        android:orientation="vertical"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_large"
+                android:layout_marginBottom="@dimen/padding_xlarge"
+                android:clickable="true"
+                android:foreground="?attr/selectableItemBackground">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_profile"
+                    android:layout_width="75dp"
+                    android:layout_height="75dp"
+                    android:layout_marginStart="@dimen/padding_medium"
+                    android:layout_marginTop="@dimen/padding_medium"
+                    android:layout_marginBottom="@dimen/padding_medium"
+                    app:civ_border_color="@color/primaryColor"
+                    app:civ_border_width="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcDefault="@{@drawable/img_profile}"
+                    app:srcStr="@{viewModel.picture}"
+                    tools:src="@drawable/img_profile" />
+
+                <TextView
+                    android:id="@+id/txt_profile_naam"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/padding_large"
+                    android:layout_marginEnd="@dimen/padding_large"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text='@{String.format("%s %s", viewModel.firstName, viewModel.lastName)}'
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/txt_profile_email"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView"
+                    app:layout_constraintStart_toEndOf="@+id/img_profile"
+                    app:layout_constraintTop_toTopOf="@+id/img_profile"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    tools:text="Dwayne 'The Rock' Johnson" />
+
+                <TextView
+                    android:id="@+id/txt_profile_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@{viewModel.email}"
+                    app:layout_constraintBottom_toBottomOf="@+id/img_profile"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_profile_naam"
+                    app:layout_constraintStart_toStartOf="@+id/txt_profile_naam"
+                    app:layout_constraintTop_toBottomOf="@id/txt_profile_naam"
+                    tools:text="dwayn.johnson@outlook.com" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/padding_medium"
+                    android:src="@drawable/ic_arrow_right"
+                    android:tint="@color/primaryTextColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_projects"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@{String.valueOf(viewModel.projectCount)}"
+                    android:textSize="18sp"
+                    tools:text="1" />
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+            <androidx.coordinatorlayout.widget.CoordinatorLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_medium">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_teams"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:text="@{String.valueOf(viewModel.teamsCount)}"
+                    android:textSize="18sp"
+                    tools:text="2" />
+
+            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:id="@+id/view_profile_signout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_large"
-            android:layout_marginBottom="@dimen/padding_xlarge"
-            android:foreground="?attr/selectableItemBackground"
+            android:padding="@dimen/padding_medium"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             android:clickable="true">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/img_profile"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:layout_marginStart="@dimen/padding_medium"
-                android:layout_marginTop="@dimen/padding_medium"
-                android:layout_marginBottom="@dimen/padding_medium"
-                app:srcStr="@{viewModel.picture}"
-                app:srcDefault="@{@drawable/img_profile}"
-                app:civ_border_color="@color/primaryColor"
-                app:civ_border_width="2dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/img_profile"/>
-
-            <TextView
-                android:id="@+id/txt_profile_naam"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/padding_large"
-                android:layout_marginEnd="@dimen/padding_large"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text='@{String.format("%s %s", viewModel.firstName, viewModel.lastName)}'
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/txt_profile_email"
-                app:layout_constraintEnd_toStartOf="@+id/imageView"
-                app:layout_constraintStart_toEndOf="@+id/img_profile"
-                app:layout_constraintTop_toTopOf="@+id/img_profile"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:text="Dwayne 'The Rock' Johnson" />
-
-            <TextView
-                android:id="@+id/txt_profile_email"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:singleLine="true"
-                android:text="@{viewModel.email}"
-                app:layout_constraintBottom_toBottomOf="@+id/img_profile"
-                app:layout_constraintEnd_toEndOf="@+id/txt_profile_naam"
-                app:layout_constraintStart_toStartOf="@+id/txt_profile_naam"
-                app:layout_constraintTop_toBottomOf="@id/txt_profile_naam"
-                tools:text="dwayn.johnson@outlook.com" />
-
             <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/padding_medium"
-                android:src="@drawable/ic_arrow_right"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:id="@+id/img_profile_signout"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/ic_power"
+                android:tint="@color/primaryTextColor"
                 tools:ignore="ContentDescription" />
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_medium">
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/label_projects"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
+                android:layout_marginStart="@dimen/padding_large"
+                android:text="@string/action_signout"
+                android:textColor="@color/primaryTextColor"
+                android:textSize="21sp"
+                android:layout_toEndOf="@id/img_profile_signout"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@{viewModel.projectCount}"
-                android:textSize="18sp"
-                tools:text="1"/>
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_medium">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/label_teams"
-                android:textSize="18sp"
-                android:textStyle="bold"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@{viewModel.teamsCount}"
-                android:textSize="18sp"
-                tools:text="2"/>
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

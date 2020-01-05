@@ -41,8 +41,11 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
     init {
         viewModelScope.launch {
-            _projectCount.value = projectRepository.getProjects().size
-            _teamsCount.value = teamRepository.getTeams().size
+            val projects = projectRepository.getProjects()
+            _projectCount.value = projects.size
+
+            val teams = teamRepository.getTeams()
+            _teamsCount.value = teams.size
 
             val user = userHelper.getSignedInUser()
             _picture.value = user?.picture
