@@ -78,6 +78,16 @@ Here's how to set it up and run it locally:
 
 4. Run the project with or without debugging
 
+## Existing Data
+For testing purposes, you can also use the following account to view existing data:
+
+```
+Username: demo.user@realdolmen.be
+Password: DemoPassword
+```
+
+This account has some teams & projects pre-made, so no need to create them yourself :)
+
 ## Architectures
 **Android**
 - Kotlin, KTX & Gradle
