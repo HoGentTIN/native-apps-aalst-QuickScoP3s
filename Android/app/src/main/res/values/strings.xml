@@ -12,6 +12,7 @@
     <string name="action_register">Register</string>
     <string name="action_add_project">Create Project</string>
     <string name="action_task_done">Finished</string>
+    <string name="action_signout">Sign Out</string>
 
     <string name="hint_email">Email</string>
     <string name="hint_password">Password</string>

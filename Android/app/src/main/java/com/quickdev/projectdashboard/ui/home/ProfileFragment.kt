@@ -1,12 +1,15 @@
 package com.quickdev.projectdashboard.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.quickdev.projectdashboard.App
 import com.quickdev.projectdashboard.databinding.FragmentHomeProfileBinding
+import com.quickdev.projectdashboard.ui.activity.StartupActivity
 import com.quickdev.projectdashboard.viewmodels.ProfileViewModel
 
 class ProfileFragment : Fragment() {
@@ -27,6 +30,12 @@ class ProfileFragment : Fragment() {
         binding = FragmentHomeProfileBinding.inflate(inflater)
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
+
+        binding.viewProfileSignout.setOnClickListener {
+            App.getUserHelper().signOut()
+            startActivity(Intent(requireContext(), StartupActivity::class.java))
+            activity!!.finish()
+        }
 
         return binding.root
     }
