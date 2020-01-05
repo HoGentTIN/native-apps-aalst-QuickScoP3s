@@ -10,7 +10,31 @@
         android:id="@+id/fragment_nav_projects"
         android:name="com.quickdev.projectdashboard.ui.home.ProjectsFragment"
         android:label="Projects"
-        tools:layout="@layout/fragment_home_projects" />
+        tools:layout="@layout/fragment_home_projects" >
+        <action
+            android:id="@+id/action_fragment_nav_projects_to_fragment_nav_projectDetails"
+            app:destination="@id/fragment_nav_projectDetails"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/fragment_nav_projectDetails"
+        android:name="com.quickdev.projectdashboard.ui.details.ProjectDetailsFragment"
+        android:label="ProjectDetailsFragment"
+        tools:layout="@layout/fragment_details_project" >
+        <argument
+            android:name="projectId"
+            app:argType="integer" />
+        <argument
+            android:name="projectName"
+            app:argType="string" />
+        <argument
+            android:name="teamName"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/fragment_nav_teams"
@@ -23,4 +47,5 @@
         android:name="com.quickdev.projectdashboard.ui.home.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_home_profile" />
+
 </navigation>

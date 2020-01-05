@@ -2,6 +2,7 @@ package com.quickdev.projectdashboard.viewmodels.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -12,21 +13,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ProjectAdapter(private val clickListener: ProjectItemClickListener):
-    ListAdapter<ProjectAdapter.DataItem, RecyclerView.ViewHolder>(ProjectDiffCallback()) {
+class ProjectAdapter(clickListener: (Project, projectName: TextView, teamName: TextView) -> Unit): ListAdapter<Project, RecyclerView.ViewHolder>(ProjectDiffCallback()) {
 
     companion object {
         private const val ITEM_VIEW_TYPE_ITEM = 1
     }
 
+    private val clickListener = ClickListener(clickListener)
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
     fun setList(list: List<Project>?) {
         adapterScope.launch {
-            val items = list?.map {DataItem.Item(it) }
-
             withContext(Dispatchers.Main) {
-                submitList(items)
+                submitList(list)
             }
         }
     }
@@ -34,8 +33,8 @@ class ProjectAdapter(private val clickListener: ProjectItemClickListener):
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder -> {
-                val item = getItem(position) as DataItem.Item
-                holder.bind(clickListener, item.project)
+                val item = getItem(position) as Project
+                holder.bind(clickListener, item)
             }
         }
     }
@@ -48,16 +47,20 @@ class ProjectAdapter(private val clickListener: ProjectItemClickListener):
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
-            is DataItem.Item -> ITEM_VIEW_TYPE_ITEM
-        }
+        return ITEM_VIEW_TYPE_ITEM
     }
 
     class ViewHolder private constructor(private val binding: ListitemProjectBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(clickListener: ProjectItemClickListener, item: Project) {
+        fun bind(clickListener: ClickListener, item: Project) {
+            clickListener.projectName = binding.txtProjectName
+            clickListener.teamName = binding.txtProjectTeam
+
             binding.project = item
             binding.clickListener = clickListener
+
+            binding.txtProjectName.transitionName = item.name
+            binding.txtProjectTeam.transitionName = "Team ${item.name}"
 
             binding.executePendingBindings()
         }
@@ -72,26 +75,21 @@ class ProjectAdapter(private val clickListener: ProjectItemClickListener):
         }
     }
 
-    class ProjectDiffCallback : DiffUtil.ItemCallback<DataItem>() {
+    class ClickListener(val clickListener: (Project, projectName: TextView, teamName: TextView) -> Unit) {
+        internal lateinit var projectName: TextView
+        internal lateinit var teamName: TextView
 
-        override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+        fun onClick(project: Project) = clickListener(project, projectName, teamName)
+    }
+
+    private class ProjectDiffCallback : DiffUtil.ItemCallback<Project>() {
+
+        override fun areItemsTheSame(oldItem: Project, newItem: Project): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+        override fun areContentsTheSame(oldItem: Project, newItem: Project): Boolean {
             return oldItem == newItem
         }
     }
-
-    sealed class DataItem {
-        data class Item(val project: Project) : DataItem() {
-            override val id = project.id
-        }
-
-        abstract val id: Int
-    }
-}
-
-class ProjectItemClickListener(val clickListener: (projectId: Int) -> Unit) {
-    fun onClick(project: Project) = clickListener(project.id)
 }

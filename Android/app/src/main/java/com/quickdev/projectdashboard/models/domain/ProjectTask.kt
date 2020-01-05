@@ -14,8 +14,10 @@ import androidx.room.PrimaryKey
 data class ProjectTask(
 	@PrimaryKey(autoGenerate = false)
 	val id: Int = 0,
+	var title: String,
 	val projectId: Int,
 	var description: String,
+	var isFinished: Boolean = false,
 	var assigneeId: Int?
 ) {
 	@Ignore

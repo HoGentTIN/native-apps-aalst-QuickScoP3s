@@ -9,13 +9,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.quickdev.projectdashboard.data.database.getDatabase
 import com.quickdev.projectdashboard.databinding.FragmentHomeProjectsBinding
 import com.quickdev.projectdashboard.ui.activity.AddProjectActivity
 import com.quickdev.projectdashboard.viewmodels.ProjectsViewModel
 import com.quickdev.projectdashboard.viewmodels.adapters.ProjectAdapter
-import com.quickdev.projectdashboard.viewmodels.adapters.ProjectItemClickListener
 
 class ProjectsFragment : Fragment() {
 
@@ -43,9 +44,17 @@ class ProjectsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        projectsAdapter = ProjectAdapter(ProjectItemClickListener { projectId: Int ->
-
-        })
+        projectsAdapter = ProjectAdapter { project, projectNameTV, teamNameTV ->
+            val projectId = project.id
+//
+            val extras = FragmentNavigatorExtras(
+                projectNameTV to "projectName",
+                teamNameTV to "teamName"
+            )
+//
+            val action = ProjectsFragmentDirections.actionFragmentNavProjectsToFragmentNavProjectDetails(projectId, project.name, project.team!!.name)
+            findNavController().navigate(action, extras)
+        }
 
         binding.listProjects.layoutManager = LinearLayoutManager(context)
         binding.listProjects.adapter = projectsAdapter

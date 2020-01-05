@@ -2,19 +2,18 @@ package com.quickdev.projectdashboard.util
 
 import android.graphics.drawable.Drawable
 import android.view.View
-import android.widget.AdapterView
+import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
-import android.widget.CalendarView
 import android.widget.CalendarView.OnDateChangeListener
-import android.widget.ImageView
-import android.widget.Spinner
-import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
 import androidx.databinding.InverseBindingAdapter
 import androidx.databinding.InverseBindingListener
 import com.quickdev.projectdashboard.data.UserPictureHelper
 import com.quickdev.projectdashboard.util.converters.DateFormatter
+import org.ocpsoft.prettytime.PrettyTime
 import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.ZoneId
 import java.util.*
 
 @BindingAdapter(value = ["srcStr", "srcDefault"], requireAll = false)
@@ -27,6 +26,12 @@ fun setImageSource(view: ImageView, source: String?, sourceDefault: Drawable?) {
         sourceDefault != null -> view.setImageDrawable(sourceDefault)
         else -> view.setImageDrawable(null)
     }
+}
+
+@BindingAdapter("prettyDate")
+fun setPrettyDate(view: TextView, date: LocalDateTime) {
+    val utilDate = Date.from(date.atZone(ZoneId.systemDefault()).toInstant())
+    view.text = PrettyTime().format(utilDate)
 }
 
 /****** CALENDARVIEW BINDING ADAPTERS ******/

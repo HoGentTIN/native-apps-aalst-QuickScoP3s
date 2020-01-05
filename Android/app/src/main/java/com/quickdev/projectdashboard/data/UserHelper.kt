@@ -10,6 +10,8 @@ import com.quickdev.projectdashboard.models.domain.User
 import java.io.ByteArrayOutputStream
 import java.io.IOException
 import java.io.InputStream
+import java.time.LocalDateTime
+import java.time.ZoneId
 
 class UserHelper(context: Context) {
 
@@ -20,6 +22,16 @@ class UserHelper(context: Context) {
 
     val isSignedIn: Boolean
         get() = authToken != null
+
+    val isTokenExpired: Boolean?
+        get() {
+            if (!isSignedIn)
+                return null
+
+            val jwt = JWT(authToken!!)
+            val expiredDate = LocalDateTime.ofInstant(jwt.expiresAt!!.toInstant(), ZoneId.systemDefault())
+            return LocalDateTime.now().isAfter(expiredDate)
+        }
 
     fun getSignedInUser(): User? {
         if (!isSignedIn)

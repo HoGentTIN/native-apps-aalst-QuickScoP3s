@@ -24,14 +24,14 @@ namespace ProjectDashboard.Controllers {
 
 		private readonly SignInManager<User> _signInManager;
 		private readonly UserManager<User> _userManager;
-		private readonly IBaseRepository<Company> _companyRepo;
+		private readonly ICompanyRepository _companyRepo;
 
 		private readonly IConfiguration _config;
 
 		public AuthController(
 			SignInManager<User> signInManager,
 			UserManager<User> userManager,
-			IBaseRepository<Company> companyRepo,
+			ICompanyRepository companyRepo,
 			IConfiguration config) {
 
 			this._signInManager = signInManager;

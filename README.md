@@ -1,4 +1,4 @@
-# Project Dashboard
+﻿# Project Dashboard
 *Native Apps I - Eindproject Android*  
 **By**: Waut Wyffels (HoGent Aalst)
 
@@ -12,4 +12,7 @@ Are you done working on a task or want to reassign it to someone else? No proble
 # Debugging and deployment
 Want to debug the full application and backend, just follow these steps:
 
-*Coming Soon*
+1. Clone the git repo to a local folder (duh 😉)
+
+## Android
+

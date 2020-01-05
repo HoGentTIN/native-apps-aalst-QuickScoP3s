@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.quickdev.projectdashboard.viewmodels.ProjectDetailsViewModel" />
+    </data>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/pullRefresh_projectdetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primaryColor">
+
+                <TextView
+                    android:id="@+id/txt_projectdetails_name"
+                    style="@style/TextAppearance.AppCompat.Headline"
+                    android:transitionName="projectName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/padding_medium"
+                    android:text="@{viewModel.projectName}"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:text="Project X" />
+
+                <TextView
+                    android:id="@+id/txt_projectdetails_team"
+                    style="@style/TextAppearance.AppCompat.Subhead"
+                    android:transitionName="teamName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{viewModel.teamName}"
+                    android:textColor="@color/secondaryTextColor"
+                    app:layout_constraintStart_toStartOf="@+id/txt_projectdetails_name"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_projectdetails_name"
+                    tools:text="Team Project X" />
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tabs_projectdetails_tasks"
+                    style="@style/Widget.MaterialComponents.TabLayout.Colored"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding_medium"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_projectdetails_team">
+
+                    <com.google.android.material.tabs.TabItem
+                        android:icon="@drawable/ic_assignment"
+                        android:text="@string/tab_tasks_open" />
+
+                    <com.google.android.material.tabs.TabItem
+                        android:icon="@drawable/ic_assignment_checked"
+                        android:text="@string/tab_tasks_finished" />
+
+                </com.google.android.material.tabs.TabLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_projectDetails_tasks"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/padding_medium"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</layout>

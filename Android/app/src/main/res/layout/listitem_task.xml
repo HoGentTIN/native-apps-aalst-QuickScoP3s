@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+
+        <variable
+            name="task"
+            type="com.quickdev.projectdashboard.models.domain.ProjectTask" />
+
+        <variable
+            name="clickListener"
+            type="com.quickdev.projectdashboard.viewmodels.adapters.TaskAdapter.ClickListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:onClick="@{() -> clickListener.onClick(task)}"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/padding_medium"
+        android:paddingStart="@dimen/padding_medium"
+        android:paddingEnd="@dimen/padding_medium">
+
+        <TextView
+            android:id="@+id/txt_project_name"
+            style="@style/TextAppearance.ListItem.Primary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:text="@{task.title}"
+            tools:text="Start the project" />
+
+        <TextView
+            android:id="@+id/txt_project_team"
+            style="@style/TextAppearance.ListItem.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="@{task.description}"
+            android:visibility="@{task.description.empty ? View.GONE : View.VISIBLE }"
+            tools:text="The basic project should be created in Android Studio.\nIt should be a Kotlin project, with a Black Template" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/dimTextColor"/>
+
+    </LinearLayout>
+</layout>

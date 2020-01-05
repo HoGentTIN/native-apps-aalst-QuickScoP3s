@@ -58,6 +58,20 @@ namespace ProjectDashboard.Controllers {
 			};
 		}
 
+		[HttpGet("{id}/tasks")]
+		public IEnumerable<ProjectTaskDTO> GetTasksForProject(int id) {
+			return _projectRepo
+				.GetTasksForProject(id)
+				.Select(x => new ProjectTaskDTO {
+					Id = x.Id,
+					Title = x.Title,
+					Description = x.Description,
+					IsFinished = x.IsFinished,
+					ProjectId = x.ProjectId,
+					AssigneeId = x.AssigneeId
+				});
+		}
+
 		[HttpPost]
 		public IActionResult Post(ProjectDTO model) {
 			Project item = new Project();

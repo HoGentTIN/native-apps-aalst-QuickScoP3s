@@ -46,10 +46,10 @@ namespace ProjectDashboard.Data {
 				_context.SaveChanges();
 
 				Project project = new Project("Project X", team1, company5, new ContactInfo("Antony", "Contact", "antonyc@realdolmen.be", "+32400000000"));
-				project.Tasks.Add(new ProjectTask("Create the project", project, demoUser));
-				project.Tasks.Add(new ProjectTask("Add initial views", project));
-				project.Tasks.Add(new ProjectTask("Add initial models", project));
-				project.Tasks.Add(new ProjectTask("Add initial viewmodels", project));
+				project.Tasks.Add(new ProjectTask("Create the project", "Create a Kotlin with AndroidX, Blank Template app in Android Studio", project, demoUser));
+				project.Tasks.Add(new ProjectTask("Add initial views", "", project));
+				project.Tasks.Add(new ProjectTask("Add initial models", "", project));
+				project.Tasks.Add(new ProjectTask("Add initial viewmodels", "", project));
 
 				_context.Projects.AddRange(project);
 				_context.SaveChanges();

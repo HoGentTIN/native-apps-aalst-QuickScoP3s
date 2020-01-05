@@ -3,8 +3,11 @@
 
 		public int Id { get; set; }
 
+		public string Title { get; set; }
+
 		public string Description { get; set; }
 
+		public bool IsFinished { get; set; } = false;
 
 		public int ProjectId { get; set; }
 
@@ -17,7 +20,8 @@
 
 		public ProjectTask() { }
 
-		public ProjectTask(string description, Project project, User assignee = null) {
+		public ProjectTask(string title, string description, Project project, User assignee = null) {
+			this.Title = title;
 			this.Description = description;
 			this.Project = project;
 			this.Assignee = assignee;

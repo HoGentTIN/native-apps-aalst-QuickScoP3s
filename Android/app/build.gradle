@@ -127,6 +127,7 @@ dependencies {
     implementation 'com.auth0.android:jwtdecode:1.4.0'
     implementation 'de.hdodenhof:circleimageview:3.0.1'
     implementation 'com.airbnb.android:lottie:3.3.0'
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
 
     // AIDAN FOLLESTAD (https://af.codes/)
     implementation "com.afollestad.material-dialogs:core:$version_matDialogs"

@@ -11,13 +11,12 @@
 
         <variable
             name="clickListener"
-            type="com.quickdev.projectdashboard.viewmodels.adapters.ProjectItemClickListener" />
+            type="com.quickdev.projectdashboard.viewmodels.adapters.ProjectAdapter.ClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
         android:background="?attr/selectableItemBackground"
         android:onClick="@{() -> clickListener.onClick(project)}"
         android:orientation="vertical"
@@ -44,6 +43,16 @@
             app:layout_constraintStart_toStartOf="@+id/txt_project_name"
             app:layout_constraintTop_toBottomOf="@id/txt_project_name"
             tools:text="Team X"/>
+
+        <TextView
+            style="@style/TextAppearance.ListItem.Meta"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:prettyDate="@{project.lastEdit}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="5 minutes ago" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

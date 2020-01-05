@@ -5,6 +5,9 @@
     <string name="nav_teams">Teams</string>
     <string name="nav_profile">Profile</string>
 
+    <string name="tab_tasks_open">Open Tasks</string>
+    <string name="tab_tasks_finished">Finished Tasks</string>
+
     <string name="action_login">Login</string>
     <string name="action_register">Register</string>
     <string name="action_add_project">Create Project</string>
@@ -28,7 +31,6 @@
 
     <string name="header_add_project">Create a project</string>
 
-    <string name="label_tasks">%s Open Task(s)</string>
     <string name="label_members">%s Member(s)</string>
     <string name="label_projects">Projects</string>
     <string name="label_teams">Teams</string>

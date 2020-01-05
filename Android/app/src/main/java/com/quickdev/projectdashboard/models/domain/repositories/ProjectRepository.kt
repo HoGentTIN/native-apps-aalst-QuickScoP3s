@@ -12,7 +12,6 @@ import java.net.SocketTimeoutException
 class ProjectRepository(database: AppDatabase) {
 
     private val projectDao = database.projectDao
-    private val tasksDao = database.tasksDao
     private val teamDao = database.teamDao
 
     suspend fun getProjects(): List<Project> {

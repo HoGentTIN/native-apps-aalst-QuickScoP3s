@@ -18,21 +18,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TeamAdapter(private val clickListener: TeamItemClickListener):
-    ListAdapter<TeamAdapter.DataItem, RecyclerView.ViewHolder>(TeamDiffCallback()) {
+class TeamAdapter(clickListener: (Int) -> Unit): ListAdapter<Team, RecyclerView.ViewHolder>(TeamDiffCallback()) {
 
     companion object {
         private const val ITEM_VIEW_TYPE_ITEM = 1
     }
 
+    private val clickListener = ClickListener(clickListener)
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
     fun setList(list: List<Team>?) {
         adapterScope.launch {
-            val items = list?.map { DataItem.Item(it) }
-
             withContext(Dispatchers.Main) {
-                submitList(items)
+                submitList(list)
             }
         }
     }
@@ -40,8 +38,8 @@ class TeamAdapter(private val clickListener: TeamItemClickListener):
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is ViewHolder -> {
-                val item = getItem(position) as DataItem.Item
-                holder.bind(clickListener, item.team)
+                val item = getItem(position) as Team
+                holder.bind(clickListener, item)
             }
         }
     }
@@ -54,14 +52,12 @@ class TeamAdapter(private val clickListener: TeamItemClickListener):
     }
 
     override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
-            is DataItem.Item -> ITEM_VIEW_TYPE_ITEM
-        }
+        return ITEM_VIEW_TYPE_ITEM
     }
 
     class ViewHolder private constructor(private val binding: ListitemTeamBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(clickListener: TeamItemClickListener, item: Team) {
+        fun bind(clickListener: ClickListener, item: Team) {
             binding.team = item
             binding.clickListener = clickListener
 
@@ -78,28 +74,20 @@ class TeamAdapter(private val clickListener: TeamItemClickListener):
         }
     }
 
-    class TeamDiffCallback : DiffUtil.ItemCallback<DataItem>() {
+    class ClickListener(val clickListener: (Int) -> Unit) {
+        fun onClick(item: Team) = clickListener(item.id)
+    }
 
-        override fun areItemsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+    private class TeamDiffCallback : DiffUtil.ItemCallback<Team>() {
+
+        override fun areItemsTheSame(oldItem: Team, newItem: Team): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: DataItem, newItem: DataItem): Boolean {
+        override fun areContentsTheSame(oldItem: Team, newItem: Team): Boolean {
             return oldItem == newItem
         }
     }
-
-    sealed class DataItem {
-        data class Item(val team: Team) : DataItem() {
-            override val id = team.id
-        }
-
-        abstract val id: Int
-    }
-}
-
-class TeamItemClickListener(val clickListener: (teamId: Int) -> Unit) {
-    fun onClick(team: Team) = clickListener(team.id)
 }
 
 class TeamDropdownAdapter(context: Context, private var mItems: List<Team>): BaseAdapter(), Filterable {

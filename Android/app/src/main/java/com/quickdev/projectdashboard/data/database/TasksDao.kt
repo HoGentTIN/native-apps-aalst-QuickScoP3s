@@ -15,8 +15,8 @@ interface TasksDao {
     @Update(onConflict = OnConflictStrategy.REPLACE)
     fun update(item: ProjectTask)
 
-    @Query("SELECT * FROM tasks WHERE projectId = :projectId")
-    fun getAllForProject(projectId: Int): List<ProjectTask>
+    @Query("SELECT * FROM tasks WHERE projectId = :projectId AND isFinished = :isFinished")
+    fun getAllForProject(projectId: Int, isFinished: Boolean): List<ProjectTask>
 
     @Query("SELECT * FROM tasks WHERE id = :id")
     fun getById(id: Int): ProjectTask

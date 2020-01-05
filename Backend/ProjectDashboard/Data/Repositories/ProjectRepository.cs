@@ -38,6 +38,13 @@ namespace ProjectDashboard.Data.Repositories {
 			return _projects.Where(x => x.OwnerId == ownerId).Any(x => x.Name.EqualsIgnoreCase(name));
 		}
 
+		public IEnumerable<ProjectTask> GetTasksForProject(int projectId) {
+			return _projects
+				.AsNoTracking()
+				.Include(x => x.Tasks)
+				.SingleOrDefault(x => x.Id == projectId)?.Tasks;
+		}
+
 		public void Add(Project item) {
 			_projects.Add(item);
 		}

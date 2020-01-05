@@ -11,13 +11,12 @@
 
         <variable
             name="clickListener"
-            type="com.quickdev.projectdashboard.viewmodels.adapters.TeamItemClickListener" />
+            type="com.quickdev.projectdashboard.viewmodels.adapters.TeamAdapter.ClickListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
         android:background="?attr/selectableItemBackground"
         android:onClick="@{() -> clickListener.onClick(team)}"
         android:orientation="vertical"

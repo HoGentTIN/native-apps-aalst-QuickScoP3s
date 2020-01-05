@@ -13,7 +13,6 @@ import com.quickdev.projectdashboard.databinding.FragmentHomeTeamsBinding
 import com.quickdev.projectdashboard.models.domain.repositories.TeamRepository
 import com.quickdev.projectdashboard.viewmodels.TeamsViewModel
 import com.quickdev.projectdashboard.viewmodels.adapters.TeamAdapter
-import com.quickdev.projectdashboard.viewmodels.adapters.TeamItemClickListener
 
 class TeamsFragment : Fragment() {
 
@@ -38,9 +37,9 @@ class TeamsFragment : Fragment() {
         binding.viewModel = viewModel
         binding.lifecycleOwner = this
 
-        teamsAdapter = TeamAdapter(TeamItemClickListener { teamId: Int ->
+        teamsAdapter = TeamAdapter { teamId: Int ->
 
-        })
+        }
 
         binding.listProjects.layoutManager = LinearLayoutManager(context)
         binding.listProjects.adapter = teamsAdapter
