@@ -20,10 +20,8 @@ interface CompanyApiService {
     @POST(BASE_URL)
     fun post(@Body dto: CompanyDTO): Deferred<Company>
 
-
     @PUT("$BASE_URL/{id}")
     fun put(@Path("id") id: Int, @Body dto: CompanyDTO): Deferred<Unit>
-
 
     @DELETE("$BASE_URL/{id}")
     fun delete(@Path("id") id: Int): Deferred<Company>

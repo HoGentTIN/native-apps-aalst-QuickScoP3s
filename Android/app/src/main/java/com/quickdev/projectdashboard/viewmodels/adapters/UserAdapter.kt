@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class UserAdapter(clickListener: (Int) -> Unit): ListAdapter<User, RecyclerView.ViewHolder>(UserDiffCallback()) {
+class UserAdapter(clickListener: (Int) -> Unit) : ListAdapter<User, RecyclerView.ViewHolder>(UserDiffCallback()) {
 
     companion object {
         private const val ITEM_VIEW_TYPE_ITEM = 1

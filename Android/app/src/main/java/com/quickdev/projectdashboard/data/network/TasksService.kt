@@ -12,10 +12,8 @@ interface TasksApiService {
     @POST(BASE_URL)
     fun post(@Body task: ProjectTask): Deferred<ProjectTask>
 
-
     @PUT("$BASE_URL/{id}")
     fun put(@Path("id") id: Int, @Body task: ProjectTask): Deferred<Unit>
-
 
     @DELETE("$BASE_URL/{id}")
     fun delete(@Path("id") id: Int): Deferred<ProjectTask>

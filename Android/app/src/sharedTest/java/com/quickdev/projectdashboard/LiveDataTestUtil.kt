@@ -8,22 +8,23 @@ import androidx.lifecycle.Observer
  */
 
 fun <T> LiveData<T>.observeForTesting(
-	block: () -> Unit) {
-	val observer = Observer<T> { Unit }
-	try {
-		observeForever(observer)
-		block()
-	} finally {
-		removeObserver(observer)
-	}
+    block: () -> Unit
+) {
+    val observer = Observer<T> { Unit }
+    try {
+        observeForever(observer)
+        block()
+    } finally {
+        removeObserver(observer)
+    }
 }
 
 fun <T> LiveData<T>.getValueForTest(): T? {
-	var value: T? = null
-	val observer = Observer<T> {
-		value = it
-	}
-	observeForever(observer)
-	removeObserver(observer)
-	return value
+    var value: T? = null
+    val observer = Observer<T> {
+        value = it
+    }
+    observeForever(observer)
+    removeObserver(observer)
+    return value
 }

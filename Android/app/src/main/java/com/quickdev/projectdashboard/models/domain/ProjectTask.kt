@@ -6,20 +6,20 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-	tableName = "tasks",
-	indices = [
-		Index(value = ["id"], unique = true)
-	]
+    tableName = "tasks",
+    indices = [
+        Index(value = ["id"], unique = true)
+    ]
 )
 data class ProjectTask(
-	@PrimaryKey(autoGenerate = false)
-	val id: Int = 0,
-	var title: String,
-	val projectId: Int,
-	var description: String,
-	var isFinished: Boolean = false,
-	var assigneeId: Int?
+    @PrimaryKey(autoGenerate = false)
+    val id: Int = 0,
+    var title: String,
+    val projectId: Int,
+    var description: String,
+    var isFinished: Boolean = false,
+    var assigneeId: Int?
 ) {
-	@Ignore
-	var assignee: User? = null
+    @Ignore
+    var assignee: User? = null
 }

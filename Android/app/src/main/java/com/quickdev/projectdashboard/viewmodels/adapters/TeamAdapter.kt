@@ -18,7 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class TeamAdapter(clickListener: (Int) -> Unit): ListAdapter<Team, RecyclerView.ViewHolder>(TeamDiffCallback()) {
+class TeamAdapter(clickListener: (Int) -> Unit) : ListAdapter<Team, RecyclerView.ViewHolder>(TeamDiffCallback()) {
 
     companion object {
         private const val ITEM_VIEW_TYPE_ITEM = 1
@@ -90,7 +90,7 @@ class TeamAdapter(clickListener: (Int) -> Unit): ListAdapter<Team, RecyclerView.
     }
 }
 
-class TeamDropdownAdapter(context: Context, private var mItems: List<Team>): BaseAdapter(), Filterable {
+class TeamDropdownAdapter(context: Context, private var mItems: List<Team>) : BaseAdapter(), Filterable {
 
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mFilter: Filter? = null
@@ -125,8 +125,7 @@ class TeamDropdownAdapter(context: Context, private var mItems: List<Team>): Bas
         return mFilter!!
     }
 
-
-    inner class TeamFilter(): Filter() {
+    inner class TeamFilter() : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults {
             val results = FilterResults()
 
@@ -152,6 +151,5 @@ class TeamDropdownAdapter(context: Context, private var mItems: List<Team>): Bas
             else
                 notifyDataSetChanged()
         }
-
     }
 }

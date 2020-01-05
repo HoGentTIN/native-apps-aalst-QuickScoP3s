@@ -22,7 +22,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     val picture: LiveData<String>
         get() = _picture
 
-    val canClearPicture: LiveData<Int> = Transformations.map(_picture) { x -> if ((x ?: "").isEmpty()) View.GONE else View.VISIBLE}
+    val canClearPicture: LiveData<Int> = Transformations.map(_picture) { x -> if ((x ?: "").isEmpty()) View.GONE else View.VISIBLE }
 
     val firstName = MutableLiveData<String>("")
     val lastName = MutableLiveData<String>("")
@@ -57,8 +57,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                 userHelper.saveUser(result.authToken, result.picture)
                 userHelper.setUserCredentials(email.value!!, password.value!!)
                 _registerResponse.value = 200
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _registerResponse.value = when (e) {
                     is retrofit2.HttpException -> e.code()
                     is InterruptedIOException -> 504
@@ -72,7 +71,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         }
     }
 
-    class Factory(private val application: Application): ViewModelProvider.Factory {
+    class Factory(private val application: Application) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

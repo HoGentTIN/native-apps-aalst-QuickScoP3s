@@ -11,23 +11,23 @@ import com.quickdev.projectdashboard.viewmodels.ProfileViewModel
 
 class ProfileFragment : Fragment() {
 
-	private lateinit var binding: FragmentHomeProfileBinding
+    private lateinit var binding: FragmentHomeProfileBinding
 
-	private val viewModel: ProfileViewModel by lazy {
-		val activity = requireNotNull(this.activity) {
-			"You can only access the viewModel after onActivityCreated()"
-		}
+    private val viewModel: ProfileViewModel by lazy {
+        val activity = requireNotNull(this.activity) {
+            "You can only access the viewModel after onActivityCreated()"
+        }
 
-		ViewModelProviders
-			.of(this, ProfileViewModel.Factory(activity.application))
-			.get(ProfileViewModel::class.java)
-	}
+        ViewModelProviders
+            .of(this, ProfileViewModel.Factory(activity.application))
+            .get(ProfileViewModel::class.java)
+    }
 
-	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-		binding = FragmentHomeProfileBinding.inflate(inflater)
-		binding.viewModel = viewModel
-		binding.lifecycleOwner = this
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        binding = FragmentHomeProfileBinding.inflate(inflater)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
 
-		return binding.root
-	}
+        return binding.root
+    }
 }

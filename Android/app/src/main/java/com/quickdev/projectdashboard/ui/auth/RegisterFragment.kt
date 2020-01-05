@@ -105,7 +105,7 @@ class RegisterFragment : Fragment() {
     private fun registerListeners() {
         binding.imgRegisterProfile.setOnClickListener { pickUserPicture() }
         binding.txtRegisterCompany.setOnClickListener { view: View ->
-            //view.findNavController().navigate(R.id.action_fragment_login_to_fragment_register)
+            // view.findNavController().navigate(R.id.action_fragment_login_to_fragment_register)
         }
         binding.btnRegistrerenClearPicture.setOnClickListener {
             binding.viewModel?.clearProfilePicture()

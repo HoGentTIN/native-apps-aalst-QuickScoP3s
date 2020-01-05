@@ -10,69 +10,69 @@ import com.quickdev.projectdashboard.models.domain.repositories.ProjectRepositor
 import com.quickdev.projectdashboard.models.domain.repositories.TeamRepository
 import kotlinx.coroutines.launch
 
-class AddProjectViewModel(database: AppDatabase): ViewModel() {
+class AddProjectViewModel(database: AppDatabase) : ViewModel() {
 
-	private val projectRepository = ProjectRepository(database)
-	private val teamRepository = TeamRepository(database)
+    private val projectRepository = ProjectRepository(database)
+    private val teamRepository = TeamRepository(database)
 
-	val projectName = MutableLiveData<String>()
-	val contactFirstName = MutableLiveData<String>()
-	val contactLastName = MutableLiveData<String>()
-	val contactEmail = MutableLiveData<String>()
-	val contactPhoneNr = MutableLiveData<String>()
+    val projectName = MutableLiveData<String>()
+    val contactFirstName = MutableLiveData<String>()
+    val contactLastName = MutableLiveData<String>()
+    val contactEmail = MutableLiveData<String>()
+    val contactPhoneNr = MutableLiveData<String>()
 
-	private val _selectedTeam = MutableLiveData<Int>()
+    private val _selectedTeam = MutableLiveData<Int>()
 
-	private val _teams = MutableLiveData<List<Team>>()
-	val teams: LiveData<List<Team>>
-		get() = _teams
+    private val _teams = MutableLiveData<List<Team>>()
+    val teams: LiveData<List<Team>>
+        get() = _teams
 
-	init {
-		viewModelScope.launch {
-			_teams.value = teamRepository.getTeams()
-		}
-	}
+    init {
+        viewModelScope.launch {
+            _teams.value = teamRepository.getTeams()
+        }
+    }
 
-	fun setSelectedTeamId(teamId: Int) {
-		_selectedTeam.value = teamId
-	}
+    fun setSelectedTeamId(teamId: Int) {
+        _selectedTeam.value = teamId
+    }
 
-	private val _createResponse = MutableLiveData<Int>()
-	val createResponse: LiveData<Int>
-		get() = _createResponse
+    private val _createResponse = MutableLiveData<Int>()
+    val createResponse: LiveData<Int>
+        get() = _createResponse
 
-	fun createProject() {
-		val user = App.getUserHelper().getSignedInUser()!!
-		val companyId = user.companyId!!
+    fun createProject() {
+        val user = App.getUserHelper().getSignedInUser()!!
+        val companyId = user.companyId!!
 
-		val contact = ContactInfo(
-			firstName = contactFirstName.value!!,
-			lastName = contactLastName.value!!,
-			email = contactEmail.value!!,
-			phoneNumber = contactPhoneNr.value!!
-		)
+        val contact = ContactInfo(
+            firstName = contactFirstName.value!!,
+            lastName = contactLastName.value!!,
+            email = contactEmail.value!!,
+            phoneNumber = contactPhoneNr.value!!
+        )
 
-		viewModelScope.launch {
-			_createResponse.value = null
-			_createResponse.value = projectRepository.postProject(
-				ProjectDTO(
-					name = projectName.value!!,
-					teamId = _selectedTeam.value!!,
-					ownerId = companyId,
-					contactPerson = contact
-				)
-			)
-		}
-	}
+        viewModelScope.launch {
+            _createResponse.value = null
+            _createResponse.value = projectRepository.postProject(
+                ProjectDTO(
+                    name = projectName.value!!,
+                    teamId = _selectedTeam.value!!,
+                    ownerId = companyId,
+                    contactPerson = contact
+                )
+            )
+        }
+    }
 
-	class Factory(private val database: AppDatabase) : ViewModelProvider.Factory {
+    class Factory(private val database: AppDatabase) : ViewModelProvider.Factory {
 
-		@Suppress("unchecked_cast")
-		override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-			if (modelClass.isAssignableFrom(AddProjectViewModel::class.java))
-				return AddProjectViewModel(database) as T
+        @Suppress("unchecked_cast")
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            if (modelClass.isAssignableFrom(AddProjectViewModel::class.java))
+                return AddProjectViewModel(database) as T
 
-			throw IllegalArgumentException("Unknown ViewModel class")
-		}
-	}
+            throw IllegalArgumentException("Unknown ViewModel class")
+        }
+    }
 }

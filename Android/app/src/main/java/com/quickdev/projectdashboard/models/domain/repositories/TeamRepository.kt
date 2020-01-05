@@ -21,8 +21,7 @@ class TeamRepository(database: AppDatabase) {
                 val teams = call.await()
                 teamDao.clear()
                 teamDao.insertAll(*teams.toTypedArray())
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
 
@@ -42,8 +41,7 @@ class TeamRepository(database: AppDatabase) {
             try {
                 val team = call.await()
                 teamDao.update(team)
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
 
@@ -68,8 +66,7 @@ class TeamRepository(database: AppDatabase) {
             val call = CompanyService.HTTP.getUsersFromCompany(companyId)
             try {
                 list = call.await()
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
 

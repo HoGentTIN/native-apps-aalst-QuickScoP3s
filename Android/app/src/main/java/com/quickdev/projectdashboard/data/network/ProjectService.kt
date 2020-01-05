@@ -19,10 +19,8 @@ interface ProjectApiService {
     @POST(BASE_URL)
     fun post(@Body dto: ProjectDTO): Deferred<ProjectDTO>
 
-
     @PUT("$BASE_URL/{id}")
     fun put(@Path("id") id: Int, @Body dto: ProjectDTO): Deferred<Unit>
-
 
     @DELETE("$BASE_URL/{id}")
     fun delete(@Path("id") id: Int): Deferred<ProjectDTO>

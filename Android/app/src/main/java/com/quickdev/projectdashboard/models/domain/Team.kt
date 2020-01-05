@@ -4,29 +4,29 @@ import androidx.room.*
 import com.quickdev.projectdashboard.util.converters.IntListConverter
 
 @Entity(
-	tableName = "teams",
-	indices = [
-		Index(value = ["id"], unique = true)
-	]
+    tableName = "teams",
+    indices = [
+        Index(value = ["id"], unique = true)
+    ]
 )
 @TypeConverters(value = [IntListConverter::class])
 data class Team(
-	@PrimaryKey(autoGenerate = false)
-	val id: Int = 0,
-	val name: String,
-	val leadId: Int,
-	val memberIds: List<Int>
+    @PrimaryKey(autoGenerate = false)
+    val id: Int = 0,
+    val name: String,
+    val leadId: Int,
+    val memberIds: List<Int>
 ) {
-	/** Variable to be filled in by the repository, not saved in the Room */
-	@Ignore
-	var lead: User? = null
+    /** Variable to be filled in by the repository, not saved in the Room */
+    @Ignore
+    var lead: User? = null
 
-	/** Variable to be filled in by the repository, not saved in the Room */
-	@Ignore
-	var members: List<User> = listOf()
+    /** Variable to be filled in by the repository, not saved in the Room */
+    @Ignore
+    var members: List<User> = listOf()
 
-	// Needed for the Autocomplete View to work 😒
-	override fun toString(): String {
-		return this.name
-	}
+    // Needed for the Autocomplete View to work 😒
+    override fun toString(): String {
+        return this.name
+    }
 }

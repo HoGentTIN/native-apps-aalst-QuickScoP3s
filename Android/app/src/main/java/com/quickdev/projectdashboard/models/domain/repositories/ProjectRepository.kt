@@ -21,8 +21,7 @@ class ProjectRepository(database: AppDatabase) {
                 val projects = call.await()
                 projectDao.clear()
                 projectDao.insertAll(*projects.map { x -> x.toModel() }.toTypedArray())
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
 
@@ -41,8 +40,7 @@ class ProjectRepository(database: AppDatabase) {
             try {
                 val project = call.await()
                 projectDao.update(project.toModel())
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
 
@@ -59,11 +57,10 @@ class ProjectRepository(database: AppDatabase) {
 
             val call = ProjectService.HTTP.post(project)
             try {
-            	val result = call.await()
+                val result = call.await()
                 projectDao.insert(result.toModel())
                 response = 200
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 response = when (e) {
                     is retrofit2.HttpException -> e.code()
                     is InterruptedIOException -> 504

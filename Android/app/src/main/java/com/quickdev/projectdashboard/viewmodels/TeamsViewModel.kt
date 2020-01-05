@@ -6,7 +6,7 @@ import com.quickdev.projectdashboard.models.domain.Team
 import com.quickdev.projectdashboard.models.domain.repositories.TeamRepository
 import kotlinx.coroutines.launch
 
-class TeamsViewModel(private val teamRepository: TeamRepository): ViewModel() {
+class TeamsViewModel(private val teamRepository: TeamRepository) : ViewModel() {
 
     private val _teams = MutableLiveData<List<Team>>()
     val teams: LiveData<List<Team>>
@@ -31,7 +31,7 @@ class TeamsViewModel(private val teamRepository: TeamRepository): ViewModel() {
         }
     }
 
-    class Factory(private val teamRepository: TeamRepository): ViewModelProvider.Factory {
+    class Factory(private val teamRepository: TeamRepository) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

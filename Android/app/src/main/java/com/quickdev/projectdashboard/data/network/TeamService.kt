@@ -15,10 +15,8 @@ interface TeamApiService {
     @POST(BASE_URL)
     fun post(@Body dto: Team): Deferred<Team>
 
-
     @PUT("$BASE_URL/{id}")
     fun put(@Path("id") id: Int, @Body dto: Team): Deferred<Unit>
-
 
     @DELETE("$BASE_URL/{id}")
     fun delete(@Path("id") id: Int): Deferred<Team>

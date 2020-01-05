@@ -30,8 +30,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 userHelper.saveUser(result.authToken, result.picture)
                 userHelper.setUserCredentials(email.value!!, password.value!!)
                 _loginResponse.value = 200
-            }
-            catch (e: Exception) {
+            } catch (e: Exception) {
                 _loginResponse.value = when (e) {
                     is retrofit2.HttpException -> e.code()
                     is InterruptedIOException -> 504
@@ -47,7 +46,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    class Factory(private val application: Application): ViewModelProvider.Factory {
+    class Factory(private val application: Application) : ViewModelProvider.Factory {
 
         @Suppress("unchecked_cast")
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {

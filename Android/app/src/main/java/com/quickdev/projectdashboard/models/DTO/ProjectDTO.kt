@@ -11,7 +11,7 @@ data class ProjectDTO(
     val ownerId: Int,
     val lastEdit: LocalDateTime = LocalDateTime.now(),
     val contactPerson: ContactInfo
-): ModelDTO<Project> {
+) : ModelDTO<Project> {
 
     override fun toModel(): Project {
         return Project(
@@ -23,5 +23,4 @@ data class ProjectDTO(
             contact = contactPerson
         )
     }
-
 }

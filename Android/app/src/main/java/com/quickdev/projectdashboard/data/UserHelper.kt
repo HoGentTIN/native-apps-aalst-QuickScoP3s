@@ -109,8 +109,7 @@ object UserPictureHelper {
                 output.write(buffer, 0, bytesRead)
                 bytesRead = inputStream.read(buffer)
             }
-        }
-        catch (e: IOException) {
+        } catch (e: IOException) {
             e.printStackTrace()
         }
 

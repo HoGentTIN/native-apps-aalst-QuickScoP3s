@@ -38,7 +38,6 @@ class TeamsFragment : Fragment() {
         binding.lifecycleOwner = this
 
         teamsAdapter = TeamAdapter { teamId: Int ->
-
         }
 
         binding.listProjects.layoutManager = LinearLayoutManager(context)
