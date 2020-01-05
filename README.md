@@ -18,7 +18,7 @@ Want to debug the full application and backend, just follow these steps:
 
 1. Open the Android folder inside Android Studio
 2. Select the appropriate [Build Variant](#build-variants)
-3. Run or deubg the selected configuration
+3. Run or debug the selected configuration
 
 ### Build Variants
 The project includes 4 build variants, which can be viewed in the 'Build Variants' toolbar inside Android Studio.
