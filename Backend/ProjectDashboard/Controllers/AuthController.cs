@@ -69,13 +69,16 @@ namespace ProjectDashboard.Controllers {
 			  new Claim("given_name", user.FirstName),
 			  new Claim("family_name", user.LastName),
 			  new Claim("phone_number", user.PhoneNumber),
-			  new Claim("company", user.CompanyId?.ToString()),
 			  
 			  new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
 			};
 
 			List<Claim> claims = new List<Claim>();
 			claims.AddRange(userclaims);
+
+			if (user.CompanyId != null)
+				claims.Add(new Claim("company", user.CompanyId.ToString()));
+
 			claims.AddRange(roles);
 
 			SymmetricSecurityKey key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["Jwt:Key"]));
