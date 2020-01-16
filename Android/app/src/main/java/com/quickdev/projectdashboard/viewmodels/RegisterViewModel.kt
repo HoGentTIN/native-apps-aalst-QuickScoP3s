@@ -51,7 +51,9 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     fun registerUser() {
         viewModelScope.launch {
             val companyId = company.value?.id
-            val registerCall = AuthService.HTTP.registerUser(RegisterDTO(picture.value!!, firstName.value!!, lastName.value!!, email.value!!, phoneNr.value!!, companyId, password.value!!, passwordConfirm.value!!))
+            val pic = if (picture.value!!.isNotBlank()) picture.value!! else null
+
+            val registerCall = AuthService.HTTP.registerUser(RegisterDTO(pic, firstName.value!!, lastName.value!!, email.value!!, phoneNr.value!!, companyId, password.value!!, passwordConfirm.value!!))
             try {
                 val result = registerCall.await()
                 userHelper.saveUser(result.authToken, result.picture)
